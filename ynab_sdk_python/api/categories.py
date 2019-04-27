@@ -1,11 +1,11 @@
 from ynab_sdk_python.api.models.categories import CategoriesResponse
 from ynab_sdk_python.api.models.category import CategoryResponse
-from ynab_sdk_python.utils.api_client import ApiClient
+from ynab_sdk_python.utils.clients.base_client import BaseClient
 
 
 class CategoriesApi:
 
-    def __init__(self, client: ApiClient):
+    def __init__(self, client: BaseClient):
         self.client = client
 
     def get_categories(self, budget_id: str) -> CategoriesResponse:

@@ -1,9 +1,17 @@
 import os
 
 from ynab_sdk_python import YNAB
+from ynab_sdk_python.utils.clients.cached_client import CachedClient
+from ynab_sdk_python.utils.configurations.cached import CachedConfig
 
 if __name__ == '__main__':
-    ynab = YNAB(os.environ.get('YNAB_KEY'))
+    config = CachedConfig(redis_host='localhost',
+                          redis_port=6379,
+                          api_key=os.environ.get('YNAB_KEY')
+                          )
+
+    client = CachedClient(config)
+    ynab = YNAB(client=client)
 
     response = ynab.budgets.get_budgets()
     #

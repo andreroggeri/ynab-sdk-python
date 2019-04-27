@@ -1,11 +1,11 @@
 from ynab_sdk_python.api.models.account import AccountResponse
 from ynab_sdk_python.api.models.accounts import AccountsResponse
-from ynab_sdk_python.utils.api_client import ApiClient
+from ynab_sdk_python.utils.clients.base_client import BaseClient
 
 
 class AccountsApi:
 
-    def __init__(self, client: ApiClient):
+    def __init__(self, client: BaseClient):
         self.client = client
 
     def get_accounts(self, budget_id: str) -> AccountsResponse:

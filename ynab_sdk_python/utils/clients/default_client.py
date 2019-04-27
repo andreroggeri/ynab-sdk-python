@@ -1,0 +1,22 @@
+import requests
+
+from ynab_sdk_python.utils.clients.base_client import BaseClient
+from ynab_sdk_python.utils.configurations.default import DefaultConfig
+
+
+class DefaultClient(BaseClient):
+
+    def __init__(self, config: DefaultConfig):
+        super().__init__(config)
+
+    def get(self, endpoint: str):
+        url = self.config.full_url + endpoint
+        self.logger.debug(f'Sending get at  {url}')
+        response = requests.get(url, headers=self.headers)
+        data = response.json()
+
+        return data
+
+    def post(self, endpoint: str, payload: dict):
+        url = self.config.full_url + endpoint
+        self.logger.debug(f'Sending get at  {url} with the payload {payload}')

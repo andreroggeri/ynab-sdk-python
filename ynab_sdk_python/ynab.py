@@ -3,18 +3,19 @@ from ynab_sdk_python.api.budgets import BudgetsApi
 from ynab_sdk_python.api.categories import CategoriesApi
 from ynab_sdk_python.api.payees import PayeeApi
 from ynab_sdk_python.api.transactions import TransactionsApi
-from ynab_sdk_python.utils.api_client import ApiClient
-from ynab_sdk_python.utils.configuration import Configuration
+from ynab_sdk_python.utils.clients.base_client import BaseClient
+from ynab_sdk_python.utils.clients.default_client import DefaultClient
+from ynab_sdk_python.utils.configurations.default import DefaultConfig
 
 
 class YNAB:
 
-    def __init__(self, api_key: str):
-        config = Configuration()
-        config.api_key = api_key
-        config.base_path = '/v1'
-
-        self.client = ApiClient(config)
+    def __init__(self, api_key: str = None, client: BaseClient = None):
+        if client:
+            self.client = client
+        else:
+            config = DefaultConfig(api_key)
+            self.client = DefaultClient(config)
 
     @property
     def budgets(self):

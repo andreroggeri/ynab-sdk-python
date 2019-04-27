@@ -1,18 +1,17 @@
 import json
-import logging
 
 import requests
 from redis import Redis
 
-from ynab_sdk_python.utils.configuration import Configuration
+from ynab_sdk_python.utils.clients.base_client import BaseClient
+from ynab_sdk_python.utils.configurations.cached import CachedConfig
 
 
-class ApiClient:
-    logger = logging.getLogger(__name__)
+class CachedClient(BaseClient):
 
-    def __init__(self, config: Configuration):
-        self.config = config
-        self.redis = Redis(host='localhost', port=6379, db=0)
+    def __init__(self, config: CachedConfig):
+        super().__init__(config)
+        self.redis = Redis(host=config.redis_host, port=config.redis_port, db=config.redis_db)
 
     def get(self, endpoint: str):
         cached_data = self.redis.get(endpoint)
@@ -26,17 +25,14 @@ class ApiClient:
             self.logger.debug(f'Sending get at  {url}')
             response = requests.get(url, headers=self.headers)
             data = response.json()
-            self.redis.set(endpoint, json.dumps(data))
+            if response.status_code == 200:
+                self.redis.set(endpoint, json.dumps(data))
+            else:
+                self.logger.error(f'Error when getting {url}')
+                self.logger.error(data)
 
         return data
 
     def post(self, endpoint: str, payload: dict):
         url = self.config.full_url + endpoint
         self.logger.debug(f'Sending get at  {url} with the payload {payload}')
-
-    @property
-    def headers(self):
-        return {
-            'Authorization': f'Bearer {self.config.api_key}',
-            'accept': 'application/json'
-        }
