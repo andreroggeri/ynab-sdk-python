@@ -11,6 +11,8 @@ from ynab_sdk_python.utils.configurations.default import DefaultConfig
 class YNAB:
 
     def __init__(self, api_key: str = None, client: BaseClient = None):
+        assert api_key is not None or client is not None
+
         if client:
             self.client = client
         else:

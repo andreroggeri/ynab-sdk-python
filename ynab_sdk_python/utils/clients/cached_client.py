@@ -14,6 +14,7 @@ class CachedClient(BaseClient):
         self.redis = Redis(host=config.redis_host, port=config.redis_port, db=config.redis_db)
 
     def get(self, endpoint: str):
+        self.logger.error(f'Endpoint => {endpoint}')
         cached_data = self.redis.get(endpoint)
 
         if cached_data:
