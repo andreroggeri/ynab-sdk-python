@@ -1,11 +1,11 @@
 from ynab_sdk_python.api.models.payee import PayeeResponse
 from ynab_sdk_python.api.models.payees import PayeesResponse
-from ynab_sdk_python.utils.api_client import ApiClient
+from ynab_sdk_python.utils.clients.base_client import BaseClient
 
 
 class PayeeApi:
 
-    def __init__(self, client: ApiClient):
+    def __init__(self, client: BaseClient):
         self.client = client
 
     def get_payees(self, budget_id: str) -> PayeesResponse:

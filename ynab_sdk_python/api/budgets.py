@@ -1,12 +1,12 @@
 from ynab_sdk_python.api.models.budget_detail import BudgetDetailResponse
 from ynab_sdk_python.api.models.budget_settings import BudgetSettingsResponse
 from ynab_sdk_python.api.models.budget_summary import BudgetSummaryResponse
-from ynab_sdk_python.utils.api_client import ApiClient
+from ynab_sdk_python.utils.clients.base_client import BaseClient
 
 
 class BudgetsApi:
 
-    def __init__(self, client: ApiClient):
+    def __init__(self, client: BaseClient):
         self.client = client
 
     def get_budgets(self) -> BudgetSummaryResponse:
