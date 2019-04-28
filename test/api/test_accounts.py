@@ -2,8 +2,8 @@ from unittest import TestCase
 
 from kgb import SpyAgency
 
-from tests.support.dummy_client import DummyClient
-import tests.support.fixtures.accounts as account_fixtures
+from test.support.dummy_client import DummyClient
+import test.support.fixtures.accounts as account_fixtures
 from ynab_sdk_python import YNAB
 
 
