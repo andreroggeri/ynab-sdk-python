@@ -23,6 +23,7 @@ jobs:
       script:
         - nose2 -v
       after_script:
+        - coverage xml
         - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
     - stage: deploy
       if: type = push
