@@ -4,10 +4,6 @@ dist: xenial
 env:
   global:
     CC_TEST_REPORTER_ID=e67092e630b55de6c17aaeff388d344b6872063c8e3ee88add85c3b82c7b7047
-before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
 install:
   - pip install -r requirements-test.txt -r requirements.txt
 
@@ -20,6 +16,10 @@ jobs:
     - stage: test
       name: Run Tests
       python: 3.7
+      before_script:
+        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        - chmod +x ./cc-test-reporter
+        - ./cc-test-reporter before-build
       script:
         - nose2 -v
       after_script:
