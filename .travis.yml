@@ -1,11 +1,13 @@
 language: python
 
+dist: xenial
 env:
   global:
     CC_TEST_REPORTER_ID=e67092e630b55de6c17aaeff388d344b6872063c8e3ee88add85c3b82c7b7047
-before_install:
+before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 install:
   - pip install -r requirements-test.txt -r requirements.txt
 
@@ -29,3 +31,7 @@ jobs:
         secure: Tvc1QMsgO6/a/UoBqjrxLSyySUBQ5RIug9JU/BzP4HAGgUz68+8WRpelwGJUmKmcPrZ0OmhDohl8CDGsBuKLw/eXuxrJaWZbnEzFfEHoFOSRsDKdJYlEOhH71P5J1A3AmyDJ1b7n0cCfg/g4/uRgiA/3pBB+2/OA2y0YbL1nHdQ8M2xD9VvmPTVrjx7fqKLBRbxi1MU9LguPsRqzLAO6rJ/m9dP0YHiorpXbgghidquJMv5q0rq6NQSxsZU4bsP62BxJxtNXc64uot2DXTXNpx2SlyQabMA9rFPWu9OU/WjChcv1t25JbVBmS/KtKlOe3o7Zm7VS5tMjJg9m1LYI29iXuS75nQWzwTUv5CzLxzq4O0YF5ds29QfO8os5tYI3hKeyMFmiCEL1dK5/T9JdjVbDSFGSyXvGq4D9u3lTvm/OyKqnnyeT+88UMogfyFA3OZRmlCzzALjqPfdxfcLoNkE3xa9LZe9cZ4wtMLmsfC+wqqLqJ0WSQtDjbx5SYgF6bqzy70fnFZ2+IQLlJTSRn3UwkF5Fw3joi9fK3yKwBFQ0kIRPAoP/xq63ZTEWGFtq/tO9wCZFmhoXFqpiwY3xFl9zTXjjE0JNdzGLKXtdpVqoNV0mHuryrNGmbGJfFBoUdK16NgJgqf0FDhqdfqGdIuW7vflvTCpDgbK5mNzkUDo=
       on:
         tags: true
+
+# Pipe the coverage data to Code Climate
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
