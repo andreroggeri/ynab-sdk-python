@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages  # noqa: H301
+from setuptools import setup, find_packages
 
 NAME = 'ynab-sdk'
 VERSION = '1.0.0'
