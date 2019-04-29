@@ -21,7 +21,7 @@ jobs:
       name: Run Tests
       python: 3.7
       script:
-        - echo running test
+        - nose2 -v
     - stage: deploy
       if: type = push
       provider: pypi
