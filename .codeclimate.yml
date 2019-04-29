@@ -1,0 +1,7 @@
+plugins:
+  pep8:
+    enabled: true
+  editorconfig:
+    enabled: true
+  sonar-python:
+    enabled: true
