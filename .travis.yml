@@ -1,9 +1,6 @@
 language: python
 
 dist: xenial
-env:
-  global:
-    CC_TEST_REPORTER_ID=8eac717bd54dfdb294641930e9fc3b4d8cb696768a5b9379ddc6c35ea71fd248
 install:
   - pip install -r requirements-test.txt -r requirements.txt
 
@@ -16,15 +13,10 @@ jobs:
     - stage: test
       name: Run Tests
       python: 3.7
-      before_script:
-        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-        - chmod +x ./cc-test-reporter
-        - ./cc-test-reporter before-build
       script:
         - nose2 -v
       after_script:
-        - coverage xml
-        - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+        - codecov
 #    - stage: deploy
 #      if: type = push
 #      provider: pypi
