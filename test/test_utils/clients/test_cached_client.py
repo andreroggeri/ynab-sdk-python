@@ -1,0 +1,57 @@
+from unittest import TestCase
+from unittest.mock import Mock, MagicMock, PropertyMock
+
+import requests
+from kgb import SpyAgency
+from redis import Redis
+from requests import Response
+
+from ynab_sdk_python.utils.clients.cached_client import CachedClient
+from ynab_sdk_python.utils.configurations.cached import CachedConfig
+
+
+def fake_get(url, **kwargs):
+    ok_response_mock = MagicMock()
+    type(ok_response_mock).status_code = PropertyMock(return_value=200)
+    ok_response_mock.json.return_value = {}
+    return ok_response_mock
+
+
+def fake_post(url, data=None, json=None, **kwargs):
+    response = Mock(spec=Response)
+    response.status_code.return_value = 200
+    response.json.return_value = {}
+    return response
+
+
+def fake_redis_get(self, key):
+    return None
+
+
+def fake_redis_set(self, name, value, ex=None, px=None, nx=False, xx=False):
+    return
+
+
+class CachedClientTest(SpyAgency, TestCase):
+    config: CachedConfig
+    client: CachedClient
+
+    def setUp(self):
+        self.config = CachedConfig('redis', 6379, api_key='some-key')
+        self.client = CachedClient(self.config)
+        self.spy_on(Redis.__init__, call_original=False)
+
+    def test_succesful_uncached_get(self):
+        request_get_spy = self.spy_on(requests.get, call_fake=fake_get)
+        redis_get_spy = self.spy_on(Redis.get, call_fake=fake_redis_get)
+        redis_get_spy = self.spy_on(Redis.set, call_fake=fake_redis_set)
+
+        self.client.get('/some-endpoint')
+
+        expected_endpoint = self.config.full_url + '/some-endpoint'
+        self.assertTrue(request_get_spy.called_with(expected_endpoint, headers=self.client.headers))
+
+    def test_succesful_post(self):
+        spy = self.spy_on(requests.post, call_fake=fake_post)
+        payload = {'key': 'value'}
+        self.client.post('/some-endpoint', payload)
