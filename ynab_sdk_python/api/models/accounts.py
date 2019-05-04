@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any, List, Optional
 
-import ynab_sdk_python.utils.parsers as parsers
+from ynab_sdk_python.utils import parsers
 
 
 @dataclass
@@ -35,21 +35,6 @@ class Account:
         return Account(id, name, type, on_budget, closed, note, balance, cleared_balance, uncleared_balance,
                        transfer_payee_id, deleted)
 
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["id"] = parsers.from_str(self.id)
-        result["name"] = parsers.from_str(self.name)
-        result["type"] = parsers.from_str(self.type)
-        result["on_budget"] = parsers.from_bool(self.on_budget)
-        result["closed"] = parsers.from_bool(self.closed)
-        result["note"] = parsers.from_str(self.note)
-        result["balance"] = parsers.from_int(self.balance)
-        result["cleared_balance"] = parsers.from_int(self.cleared_balance)
-        result["uncleared_balance"] = parsers.from_int(self.uncleared_balance)
-        result["transfer_payee_id"] = parsers.from_str(self.transfer_payee_id)
-        result["deleted"] = parsers.from_bool(self.deleted)
-        return result
-
 
 @dataclass
 class Data:
@@ -63,12 +48,6 @@ class Data:
         server_knowledge = parsers.from_int(obj.get("server_knowledge"))
         return Data(accounts, server_knowledge)
 
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["accounts"] = parsers.from_list(lambda x: parsers.to_class(Account, x), self.accounts)
-        result["server_knowledge"] = parsers.from_int(self.server_knowledge)
-        return result
-
 
 @dataclass
 class AccountsResponse:
@@ -79,8 +58,3 @@ class AccountsResponse:
         assert isinstance(obj, dict)
         data = Data.from_dict(obj.get("data"))
         return AccountsResponse(data)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["data"] = parsers.to_class(Data, self.data)
-        return result
