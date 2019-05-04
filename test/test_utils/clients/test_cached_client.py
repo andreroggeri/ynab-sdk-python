@@ -27,7 +27,7 @@ def fake_get_error(url, **kwargs):
 
 def fake_post(url, data=None, json=None, **kwargs):
     response = Mock(spec=Response)
-    response.status_code.return_value = 200
+    type(response).status_code = PropertyMock(return_value=200)
     response.json.return_value = {}
     return response
 
