@@ -6,8 +6,8 @@ import test.support.fixtures.payees as payee_fixtures
 from test.support.dummy_client import DummyClient
 from test.support.mock import build_get_mock
 from ynab_sdk_python import YNAB
-from ynab_sdk_python.api.models.payee import PayeeResponse
-from ynab_sdk_python.api.models.payees import PayeesResponse
+from ynab_sdk_python.api.models.responses.payee import PayeeResponse
+from ynab_sdk_python.api.models.responses.payees import PayeesResponse
 
 
 class PayeesTest(SpyAgency, TestCase):

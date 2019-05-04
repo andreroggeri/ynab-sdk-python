@@ -1,5 +1,5 @@
-from ynab_sdk_python.api.models.payee import PayeeResponse
-from ynab_sdk_python.api.models.payees import PayeesResponse
+from ynab_sdk_python.api.models.responses.payee import PayeeResponse
+from ynab_sdk_python.api.models.responses.payees import PayeesResponse
 from ynab_sdk_python.utils.clients.base_client import BaseClient
 
 
