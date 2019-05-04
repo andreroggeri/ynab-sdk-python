@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any, List, Optional
 
-import ynab_sdk_python.utils.parsers as parsers
+from ynab_sdk_python.utils import parsers
 
 
 @dataclass
@@ -20,14 +20,6 @@ class Payee:
         deleted = parsers.from_bool(obj.get("deleted"))
         return Payee(id, name, transfer_account_id, deleted)
 
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["id"] = parsers.from_str(self.id)
-        result["name"] = parsers.from_str(self.name)
-        result["transfer_account_id"] = parsers.from_str(self.transfer_account_id)
-        result["deleted"] = parsers.from_bool(self.deleted)
-        return result
-
 
 @dataclass
 class Data:
@@ -41,12 +33,6 @@ class Data:
         server_knowledge = parsers.from_int(obj.get("server_knowledge"))
         return Data(payees, server_knowledge)
 
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["payees"] = parsers.from_list(lambda x: parsers.to_class(Payee, x), self.payees)
-        result["server_knowledge"] = parsers.from_int(self.server_knowledge)
-        return result
-
 
 @dataclass
 class PayeesResponse:
@@ -57,8 +43,3 @@ class PayeesResponse:
         assert isinstance(obj, dict)
         data = Data.from_dict(obj.get("data"))
         return PayeesResponse(data)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["data"] = parsers.to_class(Data, self.data)
-        return result

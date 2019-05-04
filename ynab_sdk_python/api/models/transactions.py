@@ -1,7 +1,8 @@
 from dataclasses import dataclass
-from typing import Any, List, TypeVar, Callable, Type, cast, Optional
+from typing import Any, List, Optional
 
-import ynab_sdk_python.utils.parsers as parsers
+from ynab_sdk_python.utils import parsers
+
 
 @dataclass
 class Subtransaction:
@@ -26,18 +27,6 @@ class Subtransaction:
         transfer_account_id = parsers.from_str(obj.get("transfer_account_id"), True)
         deleted = parsers.from_bool(obj.get("deleted"))
         return Subtransaction(id, transaction_id, amount, memo, payee_id, category_id, transfer_account_id, deleted)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["id"] = parsers.from_str(self.id)
-        result["transaction_id"] = parsers.from_str(self.transaction_id)
-        result["amount"] = parsers.from_int(self.amount)
-        result["memo"] = parsers.from_str(self.memo)
-        result["payee_id"] = parsers.from_str(self.payee_id)
-        result["category_id"] = parsers.from_str(self.category_id)
-        result["transfer_account_id"] = parsers.from_str(self.transfer_account_id)
-        result["deleted"] = parsers.from_bool(self.deleted)
-        return result
 
 
 @dataclass
@@ -84,30 +73,9 @@ class Transaction:
         payee_name = parsers.from_str(obj.get("payee_name"), True)
         category_name = parsers.from_str(obj.get("category_name"), True)
         subtransactions = parsers.from_list(Subtransaction.from_dict, obj.get("subtransactions"))
-        return Transaction(id, date, amount, memo, cleared, approved, flag_color, account_id, payee_id, category_id, transfer_account_id, transfer_transaction_id, matched_transaction_id, import_id, deleted, account_name, payee_name, category_name, subtransactions)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["id"] = parsers.from_str(self.id)
-        result["date"] = parsers.from_str(self.date)
-        result["amount"] = parsers.from_int(self.amount)
-        result["memo"] = parsers.from_str(self.memo)
-        result["cleared"] = parsers.from_str(self.cleared)
-        result["approved"] = parsers.from_bool(self.approved)
-        result["flag_color"] = parsers.from_str(self.flag_color)
-        result["account_id"] = parsers.from_str(self.account_id)
-        result["payee_id"] = parsers.from_str(self.payee_id)
-        result["category_id"] = parsers.from_str(self.category_id)
-        result["transfer_account_id"] = parsers.from_str(self.transfer_account_id)
-        result["transfer_transaction_id"] = parsers.from_str(self.transfer_transaction_id)
-        result["matched_transaction_id"] = parsers.from_str(self.matched_transaction_id)
-        result["import_id"] = parsers.from_str(self.import_id)
-        result["deleted"] = parsers.from_bool(self.deleted)
-        result["account_name"] = parsers.from_str(self.account_name)
-        result["payee_name"] = parsers.from_str(self.payee_name)
-        result["category_name"] = parsers.from_str(self.category_name)
-        result["subtransactions"] = parsers.from_list(lambda x: parsers.parsers.parsers.to_class(Subtransaction, x), self.subtransactions)
-        return result
+        return Transaction(id, date, amount, memo, cleared, approved, flag_color, account_id, payee_id, category_id,
+                           transfer_account_id, transfer_transaction_id, matched_transaction_id, import_id, deleted,
+                           account_name, payee_name, category_name, subtransactions)
 
 
 @dataclass
@@ -122,12 +90,6 @@ class Data:
         server_knowledge = parsers.from_int(obj.get("server_knowledge"))
         return Data(transactions, server_knowledge)
 
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["transactions"] = parsers.from_list(lambda x: parsers.parsers.parsers.to_class(Transaction, x), self.transactions)
-        result["server_knowledge"] = parsers.from_int(self.server_knowledge)
-        return result
-
 
 @dataclass
 class TransactionsResponse:
@@ -138,9 +100,3 @@ class TransactionsResponse:
         assert isinstance(obj, dict)
         data = Data.from_dict(obj.get("data"))
         return TransactionsResponse(data)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["data"] = parsers.parsers.parsers.to_class(Data, self.data)
-        return result
-

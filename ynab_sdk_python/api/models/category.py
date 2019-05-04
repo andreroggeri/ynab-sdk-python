@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any, Optional
 
-import ynab_sdk_python.utils.parsers as parsers
+from ynab_sdk_python.utils import parsers
 
 
 @dataclass
@@ -44,25 +44,6 @@ class Category:
                         balance, goal_type, goal_creation_month, goal_target, goal_target_month,
                         goal_percentage_complete, deleted)
 
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["id"] = parsers.from_str(self.id)
-        result["category_group_id"] = parsers.from_str(self.category_group_id)
-        result["name"] = parsers.from_str(self.name)
-        result["hidden"] = parsers.from_bool(self.hidden)
-        result["original_category_group_id"] = parsers.from_str(self.original_category_group_id)
-        result["note"] = parsers.from_str(self.note)
-        result["budgeted"] = parsers.from_int(self.budgeted)
-        result["activity"] = parsers.from_int(self.activity)
-        result["balance"] = parsers.from_int(self.balance)
-        result["goal_type"] = parsers.from_str(self.goal_type)
-        result["goal_creation_month"] = parsers.from_str(self.goal_creation_month)
-        result["goal_target"] = parsers.from_int(self.goal_target)
-        result["goal_target_month"] = parsers.from_str(self.goal_target_month)
-        result["goal_percentage_complete"] = parsers.from_int(self.goal_percentage_complete)
-        result["deleted"] = parsers.from_bool(self.deleted)
-        return result
-
 
 @dataclass
 class Data:
@@ -74,11 +55,6 @@ class Data:
         category = Category.from_dict(obj.get("category"))
         return Data(category)
 
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["category"] = parsers.to_class(Category, self.category)
-        return result
-
 
 @dataclass
 class CategoryResponse:
@@ -89,8 +65,3 @@ class CategoryResponse:
         assert isinstance(obj, dict)
         data = Data.from_dict(obj.get("data"))
         return CategoryResponse(data)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["data"] = parsers.to_class(Data, self.data)
-        return result

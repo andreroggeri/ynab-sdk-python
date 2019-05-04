@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, List
 
-import ynab_sdk_python.utils.parsers as parsers
+from ynab_sdk_python.utils import parsers
 
 
 @dataclass
@@ -30,19 +30,6 @@ class CurrencyFormat:
         return CurrencyFormat(iso_code, example_format, decimal_digits, decimal_separator, symbol_first,
                               group_separator, currency_symbol, display_symbol)
 
-    def to_dict(self) -> dict:
-        result: dict = {
-            "iso_code": parsers.from_str(self.iso_code),
-            "example_format": parsers.from_str(self.example_format),
-            "decimal_digits": parsers.from_int(self.decimal_digits),
-            "decimal_separator": parsers.from_str(self.decimal_separator),
-            "symbol_first": parsers.from_bool(self.symbol_first),
-            "group_separator": parsers.from_str(self.group_separator),
-            "currency_symbol": parsers.from_str(self.currency_symbol),
-            "display_symbol": parsers.from_bool(self.display_symbol)
-        }
-        return result
-
 
 @dataclass
 class DateFormat:
@@ -53,10 +40,6 @@ class DateFormat:
         assert isinstance(obj, dict)
         format = parsers.from_str(obj.get("format"))
         return DateFormat(format)
-
-    def to_dict(self) -> dict:
-        result: dict = {"format": parsers.from_str(self.format)}
-        return result
 
 
 @dataclass
@@ -81,18 +64,6 @@ class Budget:
         currency_format = CurrencyFormat.from_dict(obj.get("currency_format"))
         return Budget(id, name, last_modified_on, first_month, last_month, date_format, currency_format)
 
-    def to_dict(self) -> dict:
-        result: dict = {
-            "id": parsers.from_str(self.id),
-            "name": parsers.from_str(self.name),
-            "last_modified_on": self.last_modified_on.isoformat(),
-            "first_month": parsers.from_str(self.first_month),
-            "last_month": parsers.from_str(self.last_month),
-            "date_format": parsers.to_class(DateFormat, self.date_format),
-            "currency_format": parsers.to_class(CurrencyFormat, self.currency_format)
-        }
-        return result
-
 
 @dataclass
 class Data:
@@ -104,10 +75,6 @@ class Data:
         budgets = parsers.from_list(Budget.from_dict, obj.get("budgets"))
         return Data(budgets)
 
-    def to_dict(self) -> dict:
-        result: dict = {"budgets": parsers.from_list(lambda x: parsers.to_class(Budget, x), self.budgets)}
-        return result
-
 
 @dataclass
 class BudgetSummaryResponse:
@@ -118,7 +85,3 @@ class BudgetSummaryResponse:
         assert isinstance(obj, dict)
         data = Data.from_dict(obj.get("data"))
         return BudgetSummaryResponse(data)
-
-    def to_dict(self) -> dict:
-        result: dict = {"data": parsers.to_class(Data, self.data)}
-        return result

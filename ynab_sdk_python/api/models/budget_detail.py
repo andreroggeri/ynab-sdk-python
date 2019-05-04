@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, Optional, List
 
-import ynab_sdk_python.utils.parsers as parsers
+from ynab_sdk_python.utils import parsers
 
 
 @dataclass
@@ -35,21 +35,6 @@ class Account:
         deleted = parsers.from_bool(obj.get("deleted"))
         return Account(id, name, type, on_budget, closed, note, balance, cleared_balance, uncleared_balance,
                        transfer_payee_id, deleted)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["id"] = parsers.from_str(self.id)
-        result["name"] = parsers.from_str(self.name)
-        result["type"] = parsers.from_str(self.type)
-        result["on_budget"] = parsers.from_bool(self.on_budget)
-        result["closed"] = parsers.from_bool(self.closed)
-        result["note"] = parsers.from_str(self.note)
-        result["balance"] = parsers.from_int(self.balance)
-        result["cleared_balance"] = parsers.from_int(self.cleared_balance)
-        result["uncleared_balance"] = parsers.from_int(self.uncleared_balance)
-        result["transfer_payee_id"] = parsers.from_str(self.transfer_payee_id)
-        result["deleted"] = parsers.from_bool(self.deleted)
-        return result
 
 
 @dataclass
@@ -94,25 +79,6 @@ class Category:
                         balance, goal_type, goal_creation_month, goal_target, goal_target_month,
                         goal_percentage_complete, deleted)
 
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["id"] = parsers.from_str(self.id)
-        result["category_group_id"] = parsers.from_str(self.category_group_id)
-        result["name"] = parsers.from_str(self.name)
-        result["hidden"] = parsers.from_bool(self.hidden)
-        result["original_category_group_id"] = parsers.from_str(self.original_category_group_id)
-        result["note"] = parsers.from_str(self.note)
-        result["budgeted"] = parsers.from_int(self.budgeted)
-        result["activity"] = parsers.from_int(self.activity)
-        result["balance"] = parsers.from_int(self.balance)
-        result["goal_type"] = parsers.from_str(self.goal_type)
-        result["goal_creation_month"] = parsers.from_str(self.goal_creation_month)
-        result["goal_target"] = parsers.from_int(self.goal_target)
-        result["goal_target_month"] = parsers.from_str(self.goal_target_month)
-        result["goal_percentage_complete"] = parsers.from_int(self.goal_percentage_complete)
-        result["deleted"] = parsers.from_bool(self.deleted)
-        return result
-
 
 @dataclass
 class CategoryGroup:
@@ -131,16 +97,6 @@ class CategoryGroup:
         deleted = parsers.from_bool(obj.get("deleted"))
         transfer_account_id = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("transfer_account_id"))
         return CategoryGroup(id, name, hidden, deleted, transfer_account_id)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["id"] = parsers.from_str(self.id)
-        result["name"] = parsers.from_str(self.name)
-        result["hidden"] = parsers.from_union([parsers.from_bool, parsers.from_none], self.hidden)
-        result["deleted"] = parsers.from_bool(self.deleted)
-        result["transfer_account_id"] = parsers.from_union([parsers.from_str, parsers.from_none],
-                                                           self.transfer_account_id)
-        return result
 
 
 @dataclass
@@ -168,18 +124,6 @@ class CurrencyFormat:
         return CurrencyFormat(iso_code, example_format, decimal_digits, decimal_separator, symbol_first,
                               group_separator, currency_symbol, display_symbol)
 
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["iso_code"] = parsers.from_str(self.iso_code)
-        result["example_format"] = parsers.from_str(self.example_format)
-        result["decimal_digits"] = parsers.from_int(self.decimal_digits)
-        result["decimal_separator"] = parsers.from_str(self.decimal_separator)
-        result["symbol_first"] = parsers.from_bool(self.symbol_first)
-        result["group_separator"] = parsers.from_str(self.group_separator)
-        result["currency_symbol"] = parsers.from_str(self.currency_symbol)
-        result["display_symbol"] = parsers.from_bool(self.display_symbol)
-        return result
-
 
 @dataclass
 class DateFormat:
@@ -190,11 +134,6 @@ class DateFormat:
         assert isinstance(obj, dict)
         format = parsers.from_str(obj.get("format"))
         return DateFormat(format)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["format"] = parsers.from_str(self.format)
-        return result
 
 
 @dataclass
@@ -223,19 +162,6 @@ class Month:
         categories = parsers.from_list(Category.from_dict, obj.get("categories"))
         return Month(month, note, income, budgeted, activity, to_be_budgeted, age_of_money, deleted, categories)
 
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["month"] = parsers.from_str(self.month)
-        result["note"] = parsers.from_str(self.note)
-        result["income"] = parsers.from_int(self.income)
-        result["budgeted"] = parsers.from_int(self.budgeted)
-        result["activity"] = parsers.from_int(self.activity)
-        result["to_be_budgeted"] = parsers.from_int(self.to_be_budgeted)
-        result["age_of_money"] = parsers.from_int(self.age_of_money)
-        result["deleted"] = parsers.from_bool(self.deleted)
-        result["categories"] = parsers.from_list(lambda x: parsers.to_class(Category, x), self.categories)
-        return result
-
 
 @dataclass
 class PayeeLocation:
@@ -254,15 +180,6 @@ class PayeeLocation:
         longitude = parsers.from_str(obj.get("longitude"))
         deleted = parsers.from_bool(obj.get("deleted"))
         return PayeeLocation(id, payee_id, latitude, longitude, deleted)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["id"] = parsers.from_str(self.id)
-        result["payee_id"] = parsers.from_str(self.payee_id)
-        result["latitude"] = parsers.from_str(self.latitude)
-        result["longitude"] = parsers.from_str(self.longitude)
-        result["deleted"] = parsers.from_bool(self.deleted)
-        return result
 
 
 @dataclass
@@ -292,20 +209,6 @@ class Subtransaction:
         transaction_id = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("transaction_id"))
         return Subtransaction(id, scheduled_transaction_id, amount, memo, payee_id, category_id, transfer_account_id,
                               deleted, transaction_id)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["id"] = parsers.from_str(self.id)
-        result["scheduled_transaction_id"] = parsers.from_union([parsers.from_str, parsers.from_none],
-                                                                self.scheduled_transaction_id)
-        result["amount"] = parsers.from_int(self.amount)
-        result["memo"] = parsers.from_str(self.memo)
-        result["payee_id"] = parsers.from_str(self.payee_id)
-        result["category_id"] = parsers.from_str(self.category_id)
-        result["transfer_account_id"] = parsers.from_str(self.transfer_account_id)
-        result["deleted"] = parsers.from_bool(self.deleted)
-        result["transaction_id"] = parsers.from_union([parsers.from_str, parsers.from_none], self.transaction_id)
-        return result
 
 
 @dataclass
@@ -340,22 +243,6 @@ class ScheduledTransaction:
         deleted = parsers.from_bool(obj.get("deleted"))
         return ScheduledTransaction(id, date_first, date_next, frequency, amount, memo, flag_color, account_id,
                                     payee_id, category_id, transfer_account_id, deleted)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["id"] = parsers.from_str(self.id)
-        result["date_first"] = parsers.from_str(self.date_first)
-        result["date_next"] = parsers.from_str(self.date_next)
-        result["frequency"] = parsers.from_str(self.frequency)
-        result["amount"] = parsers.from_int(self.amount)
-        result["memo"] = parsers.from_str(self.memo)
-        result["flag_color"] = parsers.from_str(self.flag_color)
-        result["account_id"] = parsers.from_str(self.account_id)
-        result["payee_id"] = parsers.from_str(self.payee_id)
-        result["category_id"] = parsers.from_str(self.category_id)
-        result["transfer_account_id"] = parsers.from_str(self.transfer_account_id)
-        result["deleted"] = parsers.from_bool(self.deleted)
-        return result
 
 
 @dataclass
@@ -398,25 +285,6 @@ class Transaction:
         deleted = parsers.from_bool(obj.get("deleted"))
         return Transaction(id, date, amount, memo, cleared, approved, flag_color, account_id, payee_id, category_id,
                            transfer_account_id, transfer_transaction_id, matched_transaction_id, import_id, deleted)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["id"] = parsers.from_str(self.id)
-        result["date"] = parsers.from_str(self.date)
-        result["amount"] = parsers.from_int(self.amount)
-        result["memo"] = parsers.from_str(self.memo)
-        result["cleared"] = parsers.from_str(self.cleared)
-        result["approved"] = parsers.from_bool(self.approved)
-        result["flag_color"] = parsers.from_str(self.flag_color)
-        result["account_id"] = parsers.from_str(self.account_id)
-        result["payee_id"] = parsers.from_str(self.payee_id)
-        result["category_id"] = parsers.from_str(self.category_id)
-        result["transfer_account_id"] = parsers.from_str(self.transfer_account_id)
-        result["transfer_transaction_id"] = parsers.from_str(self.transfer_transaction_id)
-        result["matched_transaction_id"] = parsers.from_str(self.matched_transaction_id)
-        result["import_id"] = parsers.from_str(self.import_id)
-        result["deleted"] = parsers.from_bool(self.deleted)
-        return result
 
 
 @dataclass
@@ -463,32 +331,6 @@ class Budget:
                       payees, payee_locations, category_groups, categories, months, transactions, subtransactions,
                       scheduled_transactions, scheduled_subtransactions)
 
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["id"] = parsers.from_str(self.id)
-        result["name"] = parsers.from_str(self.name)
-        result["last_modified_on"] = self.last_modified_on.isoformat()
-        result["first_month"] = parsers.from_str(self.first_month)
-        result["last_month"] = parsers.from_str(self.last_month)
-        result["date_format"] = parsers.to_class(DateFormat, self.date_format)
-        result["currency_format"] = parsers.to_class(CurrencyFormat, self.currency_format)
-        result["accounts"] = parsers.from_list(lambda x: parsers.to_class(Account, x), self.accounts)
-        result["payees"] = parsers.from_list(lambda x: parsers.to_class(CategoryGroup, x), self.payees)
-        result["payee_locations"] = parsers.from_list(lambda x: parsers.to_class(PayeeLocation, x),
-                                                      self.payee_locations)
-        result["category_groups"] = parsers.from_list(lambda x: parsers.to_class(CategoryGroup, x),
-                                                      self.category_groups)
-        result["categories"] = parsers.from_list(lambda x: parsers.to_class(Category, x), self.categories)
-        result["months"] = parsers.from_list(lambda x: parsers.to_class(Month, x), self.months)
-        result["transactions"] = parsers.from_list(lambda x: parsers.to_class(Transaction, x), self.transactions)
-        result["subtransactions"] = parsers.from_list(lambda x: parsers.to_class(Subtransaction, x),
-                                                      self.subtransactions)
-        result["scheduled_transactions"] = parsers.from_list(lambda x: parsers.to_class(ScheduledTransaction, x),
-                                                             self.scheduled_transactions)
-        result["scheduled_subtransactions"] = parsers.from_list(lambda x: parsers.to_class(Subtransaction, x),
-                                                                self.scheduled_subtransactions)
-        return result
-
 
 @dataclass
 class Data:
@@ -502,12 +344,6 @@ class Data:
         server_knowledge = parsers.from_int(obj.get("server_knowledge"))
         return Data(budget, server_knowledge)
 
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["budget"] = parsers.to_class(Budget, self.budget)
-        result["server_knowledge"] = parsers.from_int(self.server_knowledge)
-        return result
-
 
 @dataclass
 class BudgetDetailResponse:
@@ -518,8 +354,3 @@ class BudgetDetailResponse:
         assert isinstance(obj, dict)
         data = Data.from_dict(obj.get("data"))
         return BudgetDetailResponse(data)
-
-    def to_dict(self) -> dict:
-        result: dict = {}
-        result["data"] = parsers.to_class(Data, self.data)
-        return result
