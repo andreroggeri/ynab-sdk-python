@@ -2,9 +2,11 @@ from unittest import TestCase
 
 from kgb import SpyAgency
 
-from test.support.dummy_client import DummyClient
 import test.support.fixtures.accounts as account_fixtures
+from test.support.dummy_client import DummyClient
 from ynab_sdk_python import YNAB
+from ynab_sdk_python.api.models.account import AccountResponse
+from ynab_sdk_python.api.models.accounts import AccountsResponse
 
 
 def mock_valid_accounts(self, endpoint):
@@ -29,6 +31,7 @@ class AccountsTest(SpyAgency, TestCase):
 
         self.assertTrue(spy.called_with('/budgets/some-budget/accounts'))
         self.assertIsNotNone(accounts)
+        self.assertIsInstance(accounts, AccountsResponse)
 
     def test_get_account_with_success(self):
         spy = self.spy_on(self.client.get, call_fake=mock_valid_account)
@@ -36,3 +39,4 @@ class AccountsTest(SpyAgency, TestCase):
 
         self.assertTrue(spy.called_with('/budgets/some-budget/accounts/some-account'))
         self.assertIsNotNone(account)
+        self.assertIsInstance(account, AccountResponse)
