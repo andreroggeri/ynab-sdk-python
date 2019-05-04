@@ -26,13 +26,11 @@ VALID_ACCOUNT = {
             "name": "Some Account",
             "type": "creditCard",
             "on_budget": True,
-
             "closed": False,
             "note": None,
             "balance": 0,
             "cleared_balance": 0,
             "uncleared_balance": 0,
-
             "transfer_payee_id": "cda78a53-339f-4535-a39c-039c92f90618",
             "deleted": False
         }
