@@ -1,5 +1,5 @@
-from ynab_sdk_python.api.models.categories import CategoriesResponse
-from ynab_sdk_python.api.models.category import CategoryResponse
+from ynab_sdk_python.api.models.responses.categories import CategoriesResponse
+from ynab_sdk_python.api.models.responses.category import CategoryResponse
 from ynab_sdk_python.utils.clients.base_client import BaseClient
 
 

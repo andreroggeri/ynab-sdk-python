@@ -6,9 +6,9 @@ import test.support.fixtures.budgets as budget_fixtures
 from test.support.dummy_client import DummyClient
 from test.support.mock import build_get_mock
 from ynab_sdk_python import YNAB
-from ynab_sdk_python.api.models.budget_detail import BudgetDetailResponse
-from ynab_sdk_python.api.models.budget_settings import BudgetSettingsResponse
-from ynab_sdk_python.api.models.budget_summary import BudgetSummaryResponse
+from ynab_sdk_python.api.models.responses.budget_detail import BudgetDetailResponse
+from ynab_sdk_python.api.models.responses.budget_settings import BudgetSettingsResponse
+from ynab_sdk_python.api.models.responses.budget_summary import BudgetSummaryResponse
 
 
 class BudgetsTest(SpyAgency, TestCase):

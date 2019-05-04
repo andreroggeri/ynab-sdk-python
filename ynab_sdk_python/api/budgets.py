@@ -1,6 +1,6 @@
-from ynab_sdk_python.api.models.budget_detail import BudgetDetailResponse
-from ynab_sdk_python.api.models.budget_settings import BudgetSettingsResponse
-from ynab_sdk_python.api.models.budget_summary import BudgetSummaryResponse
+from ynab_sdk_python.api.models.responses.budget_detail import BudgetDetailResponse
+from ynab_sdk_python.api.models.responses.budget_settings import BudgetSettingsResponse
+from ynab_sdk_python.api.models.responses.budget_summary import BudgetSummaryResponse
 from ynab_sdk_python.utils.clients.base_client import BaseClient
 
 

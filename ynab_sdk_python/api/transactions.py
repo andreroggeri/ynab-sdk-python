@@ -1,4 +1,4 @@
-from ynab_sdk_python.api.models.transactions import TransactionsResponse
+from ynab_sdk_python.api.models.responses.transactions import TransactionsResponse
 from ynab_sdk_python.utils.clients.base_client import BaseClient
 
 

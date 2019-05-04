@@ -6,7 +6,7 @@ import test.support.fixtures.transactions as transaction_fixtures
 from test.support.dummy_client import DummyClient
 from test.support.mock import build_get_mock, build_post_mock
 from ynab_sdk_python import YNAB
-from ynab_sdk_python.api.models.transactions import TransactionsResponse
+from ynab_sdk_python.api.models.responses.transactions import TransactionsResponse
 
 
 class TransactionsTest(SpyAgency, TestCase):
