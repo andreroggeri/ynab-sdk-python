@@ -36,4 +36,5 @@ class CachedClient(BaseClient):
 
     def post(self, endpoint: str, payload: dict):
         url = self.config.full_url + endpoint
-        self.logger.debug(f'Sending get at  {url} with the payload {payload}')
+        response = requests.post(url, json=payload, headers=self.headers)
+        return response.json()
