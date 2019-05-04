@@ -5,7 +5,7 @@
 Python implementation of the YNAB API ([https://api.youneedabudget.com/](https://api.youneedabudget.com/))
 
 ## Warning
-This is pretty much a work in progress, the basic stuff is working, but nothis is guaranteed.
+This is pretty much a work in progress, the basic stuff is working, but nothing is guaranteed.
 See below whats implemented and whats not
 
 ## Installation
