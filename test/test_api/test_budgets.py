@@ -6,6 +6,9 @@ import test.support.fixtures.budgets as budget_fixtures
 from test.support.dummy_client import DummyClient
 from test.support.mock import build_get_mock
 from ynab_sdk_python import YNAB
+from ynab_sdk_python.api.models.budget_detail import BudgetDetailResponse
+from ynab_sdk_python.api.models.budget_settings import BudgetSettingsResponse
+from ynab_sdk_python.api.models.budget_summary import BudgetSummaryResponse
 
 
 class BudgetsTest(SpyAgency, TestCase):
@@ -22,6 +25,7 @@ class BudgetsTest(SpyAgency, TestCase):
 
         self.assertTrue(spy.called_with('/budgets'))
         self.assertIsNotNone(budgets)
+        self.assertIsInstance(budgets, BudgetSummaryResponse)
 
     def test_get_budget_with_success(self):
         spy = self.spy_on(self.client.get, call_fake=build_get_mock(budget_fixtures.VALID_BUDGET))
@@ -29,6 +33,7 @@ class BudgetsTest(SpyAgency, TestCase):
 
         self.assertTrue(spy.called_with('/budgets/abc-123'))
         self.assertIsNotNone(budget)
+        self.assertIsInstance(budget, BudgetDetailResponse)
 
     def test_get_budget_settings_with_success(self):
         spy = self.spy_on(self.client.get, call_fake=build_get_mock(budget_fixtures.VALID_SETTINGS))
@@ -36,3 +41,4 @@ class BudgetsTest(SpyAgency, TestCase):
 
         self.assertTrue(spy.called_with('/budgets/abc-123/settings'))
         self.assertIsNotNone(settings)
+        self.assertIsInstance(settings, BudgetSettingsResponse)

@@ -6,6 +6,7 @@ import test.support.fixtures.transactions as transaction_fixtures
 from test.support.dummy_client import DummyClient
 from test.support.mock import build_get_mock, build_post_mock
 from ynab_sdk_python import YNAB
+from ynab_sdk_python.api.models.transactions import TransactionsResponse
 
 
 class TransactionsTest(SpyAgency, TestCase):
@@ -22,6 +23,7 @@ class TransactionsTest(SpyAgency, TestCase):
 
         self.assertTrue(spy.called_with('/budgets/some-budget/transactions'))
         self.assertIsNotNone(transactions)
+        self.assertIsInstance(transactions, TransactionsResponse)
 
     def test_create_transactions_with_success(self):
         spy = self.spy_on(self.client.post, call_fake=build_post_mock())

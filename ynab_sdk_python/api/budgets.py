@@ -18,4 +18,5 @@ class BudgetsApi:
         return BudgetDetailResponse.from_dict(response)
 
     def get_budget_settings(self, budget_id: str) -> BudgetSettingsResponse:
-        return self.client.get(f'/budgets/{budget_id}/settings')
+        response = self.client.get(f'/budgets/{budget_id}/settings')
+        return BudgetSettingsResponse.from_dict(response)
