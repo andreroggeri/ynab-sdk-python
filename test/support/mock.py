@@ -3,3 +3,10 @@ def build_get_mock(return_value):
         return return_value
 
     return mock_get
+
+
+def build_post_mock():
+    def mock_post(_self, _endpoint, _payload):
+        return {}
+
+    return mock_post

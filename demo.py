@@ -43,6 +43,6 @@ if __name__ == '__main__':
             print(detail)
 
         # Transactions
-        response = ynab.transactions.get_transcations(budget.id)
+        response = ynab.transactions.get_transactions(budget.id)
         for transaction in response.data.transactions:
             print(transaction)
