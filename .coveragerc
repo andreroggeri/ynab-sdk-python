@@ -26,4 +26,4 @@ ignore_errors = True
 directory = coverage_html_report
 
 [paths]
-source = ynab_sdk_python
+source = ynab_sdk
