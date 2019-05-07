@@ -1,20 +1,27 @@
+import os
+
 from setuptools import setup, find_packages
 
 NAME = 'ynab-sdk'
-VERSION = '1.0.0'
-REQUIRES = ['requests']
+VERSION = '0.0.2'
+REQUIRES = ['requests', 'python-dateutil', 'redis']
+
+
+def read(fname):
+    with open(os.path.join(os.path.dirname(__file__), fname)) as f:
+        return f.read()
+
 
 setup(
     name=NAME,
     version=VERSION,
-    description="YNAB API Endpoints",
-    author_email="",
-    url="",
-    keywords=["Swagger", "YNAB API Endpoints"],
+    description='YNAB API Endpoints',
+    author_email='a.roggeri.c@gmail.com',
+    url='https://github.com/andreroggeri/ynab-sdk-python',
+    keywords=["YNAB", "YNAB API Endpoints", ''],
     install_requires=REQUIRES,
     packages=find_packages(),
     include_package_data=True,
-    long_description="""\
-    Our API uses a REST based design, leverages the JSON data format, and relies upon HTTPS for transport. We respond with meaningful HTTP response codes and if an error occurs, we include error details in the response body.  API Documentation is at https://api.youneedabudget.com  # noqa: E501
-    """
+    long_description=read('README.md'),
+    long_description_content_type='text/markdown'
 )
