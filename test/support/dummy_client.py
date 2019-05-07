@@ -1,5 +1,5 @@
-from ynab_sdk_python.utils.clients.base_client import BaseClient
-from ynab_sdk_python.utils.configurations.default import DefaultConfig
+from ynab_sdk.utils.clients.base_client import BaseClient
+from ynab_sdk.utils.configurations.default import DefaultConfig
 
 
 class DummyClient(BaseClient):

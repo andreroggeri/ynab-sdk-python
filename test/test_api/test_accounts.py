@@ -4,9 +4,9 @@ from kgb import SpyAgency
 
 import test.support.fixtures.accounts as account_fixtures
 from test.support.dummy_client import DummyClient
-from ynab_sdk_python import YNAB
-from ynab_sdk_python.api.models.responses.account import AccountResponse
-from ynab_sdk_python.api.models.responses.accounts import AccountsResponse
+from ynab_sdk import YNAB
+from ynab_sdk.api.models.responses.account import AccountResponse
+from ynab_sdk.api.models.responses.accounts import AccountsResponse
 
 
 def mock_valid_accounts(self, endpoint):

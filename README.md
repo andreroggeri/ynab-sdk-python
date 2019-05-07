@@ -1,4 +1,5 @@
 # ynab-sdk-python
+[![PyPI version](https://badge.fury.io/py/ynab-sdk.svg)](https://badge.fury.io/py/ynab-sdk)
 [![Maintainability](https://api.codeclimate.com/v1/badges/b6042768d805939000c2/maintainability)](https://codeclimate.com/github/andreroggeri/ynab-sdk-python/maintainability)
 [![codecov](https://codecov.io/gh/andreroggeri/ynab-sdk-python/branch/master/graph/badge.svg)](https://codecov.io/gh/andreroggeri/ynab-sdk-python)
 
@@ -13,13 +14,13 @@ See below whats implemented and whats not
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install `ynab-sdk-python`
 
 ```bash
-pip install ynab-sdk-python
+pip install ynab-sdk
 ```
 
 ## Usage
 
 ```python
-from ynab_sdk_python import YNAB
+from ynab_sdk import YNAB
 
 ynab = YNAB('some-key')
 print(ynab.budgets.get_budgets())

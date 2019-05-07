@@ -1,7 +1,7 @@
 import logging
 from abc import ABC, abstractmethod
 
-from ynab_sdk_python.utils.configurations.default import DefaultConfig
+from ynab_sdk.utils.configurations.default import DefaultConfig
 
 
 class BaseClient(ABC):

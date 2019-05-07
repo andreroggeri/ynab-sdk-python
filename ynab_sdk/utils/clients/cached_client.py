@@ -3,8 +3,8 @@ import json
 import requests
 from redis import Redis
 
-from ynab_sdk_python.utils.clients.base_client import BaseClient
-from ynab_sdk_python.utils.configurations.cached import CachedConfig
+from ynab_sdk.utils.clients.base_client import BaseClient
+from ynab_sdk.utils.configurations.cached import CachedConfig
 
 
 class CachedClient(BaseClient):
