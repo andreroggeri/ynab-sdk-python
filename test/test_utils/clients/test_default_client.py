@@ -5,8 +5,8 @@ import requests
 from kgb import SpyAgency
 from requests import Response
 
-from ynab_sdk_python.utils.clients.default_client import DefaultClient
-from ynab_sdk_python.utils.configurations.default import DefaultConfig
+from ynab_sdk.utils.clients.default_client import DefaultClient
+from ynab_sdk.utils.configurations.default import DefaultConfig
 
 
 def fake_get(url, **kwargs):

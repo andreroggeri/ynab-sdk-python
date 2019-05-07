@@ -1,9 +1,9 @@
 import dataclasses
 from typing import List
 
-from ynab_sdk_python.api.models.requests.transaction import TransactionRequest
-from ynab_sdk_python.api.models.responses.transactions import TransactionsResponse
-from ynab_sdk_python.utils.clients.base_client import BaseClient
+from ynab_sdk.api.models.requests.transaction import TransactionRequest
+from ynab_sdk.api.models.responses.transactions import TransactionsResponse
+from ynab_sdk.utils.clients.base_client import BaseClient
 
 
 class TransactionsApi:

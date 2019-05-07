@@ -1,6 +1,6 @@
-from ynab_sdk_python.api.models.responses.account import AccountResponse
-from ynab_sdk_python.api.models.responses.accounts import AccountsResponse
-from ynab_sdk_python.utils.clients.base_client import BaseClient
+from ynab_sdk.api.models.responses.account import AccountResponse
+from ynab_sdk.api.models.responses.accounts import AccountsResponse
+from ynab_sdk.utils.clients.base_client import BaseClient
 
 
 class AccountsApi:

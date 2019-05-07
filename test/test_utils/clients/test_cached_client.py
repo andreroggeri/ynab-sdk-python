@@ -7,8 +7,8 @@ from kgb import SpyAgency
 from redis import Redis
 from requests import Response
 
-from ynab_sdk_python.utils.clients.cached_client import CachedClient
-from ynab_sdk_python.utils.configurations.cached import CachedConfig
+from ynab_sdk.utils.clients.cached_client import CachedClient
+from ynab_sdk.utils.configurations.cached import CachedConfig
 
 
 def fake_get(url, **kwargs):

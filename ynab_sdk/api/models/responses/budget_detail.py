@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Any, Optional, List
 
-from ynab_sdk_python.utils import parsers
+from ynab_sdk.utils import parsers
 
 
 @dataclass

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any
 
-from ynab_sdk_python.utils import parsers
+from ynab_sdk.utils import parsers
 
 
 @dataclass

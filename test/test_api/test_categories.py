@@ -5,9 +5,9 @@ from kgb import SpyAgency
 import test.support.fixtures.categories as categories_fixtures
 from test.support.dummy_client import DummyClient
 from test.support.mock import build_get_mock
-from ynab_sdk_python import YNAB
-from ynab_sdk_python.api.models.responses.categories import CategoriesResponse
-from ynab_sdk_python.api.models.responses.category import CategoryResponse
+from ynab_sdk import YNAB
+from ynab_sdk.api.models.responses.categories import CategoriesResponse
+from ynab_sdk.api.models.responses.category import CategoryResponse
 
 
 class CategoriesTest(SpyAgency, TestCase):
