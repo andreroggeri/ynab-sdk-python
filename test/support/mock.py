@@ -10,3 +10,10 @@ def build_post_mock():
         return {}
 
     return mock_post
+
+def build_put_mock():
+    def mock_put(_self, _endpoint, _payload):
+        return {}
+
+    return mock_put
+
