@@ -27,6 +27,14 @@ class TransactionsTest(SpyAgency, TestCase):
         self.assertIsNotNone(transactions)
         self.assertIsInstance(transactions, TransactionsResponse)
 
+    def test_get_transactions_from_account_with_success(self):
+        spy = self.spy_on(self.client.get, call_fake=build_get_mock(transaction_fixtures.VALID_TRANSACTIONS))
+        transactions = self.ynab.transactions.get_transactions('some-budget', 'some-account')
+
+        self.assertTrue(spy.called_with('/budgets/some-budget/accounts/some-account/transactions'))
+        self.assertIsNotNone(transactions)
+        self.assertIsInstance(transactions, TransactionsResponse)
+
     def test_create_transactions_with_success(self):
         spy = self.spy_on(self.client.post, call_fake=build_post_mock())
         transactions = [TransactionRequest('some-account', 'some-date', 123123)]
