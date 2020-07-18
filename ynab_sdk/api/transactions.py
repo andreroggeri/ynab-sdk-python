@@ -15,6 +15,10 @@ class TransactionsApi:
         response = self.client.get(f'/budgets/{budget_id}/transactions')
         return TransactionsResponse.from_dict(response)
 
+    def get_transactions_from_account(self, budget_id: str, account_id: str) -> TransactionsResponse:
+        response = self.client.get(f'/budgets/{budget_id}/accounts/{account_id}/transactions')
+        return TransactionsResponse.from_dict(response)
+
     def create_transactions(self, budget_id: str, transactions: List[TransactionRequest]):
         payload = {
             'transactions': [dataclasses.asdict(t) for t in transactions]
