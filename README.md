@@ -55,7 +55,7 @@ See below whats implemented (Not fully updated yet)
 |/budgets/{budget_id}/transactions/{transaction_id}|GET|Returns a single transaction|YES|
 |/budgets/{budget_id}/transactions/{transaction_id}|PUT|Updates a transaction|NO|
 |/budgets/{budget_id}/transactions/bulk|POST|Creates multiple transactions.  Although this endpoint is still supported, it is recommended to use 'POST /budgets/{budget_id}/transactions' to create multiple transactions.|NO|
-|/budgets/{budget_id}/accounts/{account_id}/transactions|GET|Returns all transactions for a specified account|NO|
+|/budgets/{budget_id}/accounts/{account_id}/transactions|GET|Returns all transactions for a specified account|YES|
 |/budgets/{budget_id}/categories/{category_id}/transactions|GET|Returns all transactions for a specified category|NO|
 |/budgets/{budget_id}/payees/{payee_id}/transactions|GET|Returns all transactions for a specified payee|NO|
 |/budgets/{budget_id}/scheduled_transactions|GET|Returns all scheduled transactions|NO|
