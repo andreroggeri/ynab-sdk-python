@@ -17,6 +17,3 @@ class DummyClient(BaseClient):
 
     def post(self, endpoint: str, payload: dict):
         pass
-
-    def put(self, endpoint: str, payload: dict):
-        pass
