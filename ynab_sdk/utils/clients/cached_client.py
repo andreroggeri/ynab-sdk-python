@@ -12,7 +12,6 @@ class CachedClient(BaseClient):
     def __init__(self, config: CachedConfig):
         super().__init__(config)
         self.redis = Redis(host=config.redis_host, port=config.redis_port, db=config.redis_db)
-        self.redis_TTL = config.redis_TTL
 
     def get(self, endpoint: str):
         self.logger.error(f'Endpoint => {endpoint}')
