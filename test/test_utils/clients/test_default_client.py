@@ -21,6 +21,12 @@ def fake_post(url, data=None, json=None, **kwargs):
     return response
 
 
+def fake_put(url, data=None, json=None, **kwargs):
+    response = Mock(spec=Response)
+    response.json.return_value = {}
+    return response
+
+
 class DefaultClientTest(SpyAgency, TestCase):
     config: DefaultConfig
     client: DefaultClient
@@ -41,4 +47,8 @@ class DefaultClientTest(SpyAgency, TestCase):
         spy = self.spy_on(requests.post, call_fake=fake_post)
         payload = {'key': 'value'}
         self.client.post('/some-endpoint', payload)
-   
+
+    def test_succesful_put(self):
+        spy = self.spy_on(requests.put, call_fake=fake_put)
+        payload = {'key': 'value'}
+        self.client.post('/some-endpoint', payload)

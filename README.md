@@ -53,7 +53,7 @@ See below whats implemented (Not fully updated yet)
 |/budgets/{budget_id}/transactions|POST|Creates a single transaction or multiple transactions.  If you provide a body containing a 'transaction' object, a single transaction will be created and if you provide a body containing a 'transactions' array, multiple transactions will be created.|YES|
 |/budgets/{budget_id}/transactions|PATCH|Updates multiple transactions, by 'id' or 'import_id'.|NO|
 |/budgets/{budget_id}/transactions/{transaction_id}|GET|Returns a single transaction|YES|
-|/budgets/{budget_id}/transactions/{transaction_id}|PUT|Updates a transaction|NO|
+|/budgets/{budget_id}/transactions/{transaction_id}|PUT|Updates a transaction|YES|
 |/budgets/{budget_id}/transactions/bulk|POST|Creates multiple transactions.  Although this endpoint is still supported, it is recommended to use 'POST /budgets/{budget_id}/transactions' to create multiple transactions.|NO|
 |/budgets/{budget_id}/accounts/{account_id}/transactions|GET|Returns all transactions for a specified account|NO|
 |/budgets/{budget_id}/categories/{category_id}/transactions|GET|Returns all transactions for a specified category|NO|

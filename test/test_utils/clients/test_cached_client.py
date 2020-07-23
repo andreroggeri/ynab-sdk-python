@@ -32,6 +32,13 @@ def fake_post(url, data=None, json=None, **kwargs):
     return response
 
 
+def fake_put(url, data=None, json=None, **kwargs):
+    response = Mock(spec=Response)
+    type(response).status_code = PropertyMock(return_value=200)
+    response.json.return_value = {}
+    return response
+
+
 def fake_redis_set(self, name, value, ex=None, px=None, nx=False, xx=False):
     return
 
@@ -85,3 +92,8 @@ class CachedClientTest(SpyAgency, TestCase):
         spy = self.spy_on(requests.post, call_fake=fake_post)
         payload = {'key': 'value'}
         self.client.post('/some-endpoint', payload)
+
+    def test_succesful_put(self):
+        spy = self.spy_on(requests.put, call_fake=fake_put)
+        payload = {'key': 'value'}
+        self.client.put('/some-endpoint', payload)
