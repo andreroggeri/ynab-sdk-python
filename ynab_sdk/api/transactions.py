@@ -24,9 +24,3 @@ class TransactionsApi:
             'transactions': [dataclasses.asdict(t) for t in transactions]
         }
         return self.client.post(f'/budgets/{budget_id}/transactions', payload)
-
-    def update_transaction(self, budget_id: str, transaction_id: str, transaction: TransactionRequest):
-        payload = {
-            'transaction': dataclasses.asdict(transaction)
-        }
-        return self.client.put(f'/budgets/{budget_id}/transactions/{transaction_id}', payload)

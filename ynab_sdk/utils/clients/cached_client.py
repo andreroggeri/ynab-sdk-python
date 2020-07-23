@@ -27,10 +27,7 @@ class CachedClient(BaseClient):
             response = requests.get(url, headers=self.headers)
             data = response.json()
             if response.status_code == 200:
-                if self.redis_TTL > 0:
-                    self.redis.setex(endpoint, self.redis_TTL, json.dumps(data))
-                else:
-                    self.redis.set(endpoint, json.dumps(data))
+                self.redis.set(endpoint, json.dumps(data))
             else:
                 self.logger.error(f'Error when getting {url}')
                 self.logger.error(data)
@@ -40,9 +37,4 @@ class CachedClient(BaseClient):
     def post(self, endpoint: str, payload: dict):
         url = self.config.full_url + endpoint
         response = requests.post(url, json=payload, headers=self.headers)
-        return response.json()
-
-    def put(self, endpoint: str, payload: dict):
-        url = self.config.full_url + endpoint
-        response = requests.put(url, json=payload, headers=self.headers)
         return response.json()
