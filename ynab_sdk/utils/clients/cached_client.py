@@ -12,6 +12,10 @@ class CachedClient(BaseClient):
     def __init__(self, config: CachedConfig):
         super().__init__(config)
         self.redis = Redis(host=config.redis_host, port=config.redis_port, db=config.redis_db)
+        if config.redis_TTL and config.redis_TTL > 0:
+            self.redis_TTL = config.redis_TTL
+        else:
+            self.redis_TTL = None
 
     def get(self, endpoint: str):
         self.logger.error(f'Endpoint => {endpoint}')
@@ -27,7 +31,7 @@ class CachedClient(BaseClient):
             response = requests.get(url, headers=self.headers)
             data = response.json()
             if response.status_code == 200:
-                self.redis.set(endpoint, json.dumps(data))
+                self.redis.set(endpoint, json.dumps(data), self.redis_TTL)
             else:
                 self.logger.error(f'Error when getting {url}')
                 self.logger.error(data)
