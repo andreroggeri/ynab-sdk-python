@@ -1,5 +1,4 @@
 from ynab_sdk.utils.configurations.default import DefaultConfig
-from typing import Union
 
 
 class CachedConfig(DefaultConfig):
