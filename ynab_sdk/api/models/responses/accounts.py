@@ -15,7 +15,7 @@ class Account:
     balance: int
     cleared_balance: int
     uncleared_balance: int
-    transfer_payee_id: str
+    transfer_payee_id: Optional[str]
     deleted: bool
 
     @staticmethod
