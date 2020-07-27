@@ -9,33 +9,35 @@ from ynab_sdk.utils.configurations.cached import CachedConfig
 
 class CachedClient(BaseClient):
 
-    def __init__(self, config: CachedConfig, TTL_value: int = 3600):
+    def __init__(self, config: CachedConfig):
         super().__init__(config)
-        self.redis = Redis(host=config.redis_host, port=config.redis_port, db=config.redis_db)
-        self.cache_time_to_live(TTL_value)
+        self.redis = Redis(host=config.redis_host, port=config.redis_port, db=config.redis_db, password=config.redis_pass)
+        self._redis_ttl_default = 3600
+        self._redis_ttl = self._redis_ttl_default
+        self._redis_prefix: str = 'YNAB_endpoint_'
 
     @property
     def cache_time_to_live(self) -> int:
-        return self._redis_TTL
+        return self._redis_ttl
 
     @cache_time_to_live.setter
-    def cache_time_to_live(self, TTL_value: int) -> None:
-        if TTL_value and TTL_value > 0:
-            self._redis_TTL = TTL_value
+    def cache_time_to_live(self, ttl_value: int) -> None:
+        if ttl_value and ttl_value > 0:
+            self._redis_ttl = ttl_value
         else:
-            self.logger.error(f'Invalid TTL value: {TTL_value}, using default')
-            self._redis_TTL = 3600
+            self.logger.error(f'cache_time_to_live: invalid TTL value: {ttl_value}, using default')
+            self._redis_ttl = self._redis_ttl_default
 
     def clear_cache(self) -> None:
         keys_count: int = 0
-        for k in self.redis.scan_iter(''.join([self.redis_prefix, '*'])):
+        for k in self.redis.scan_iter(''.join([self._redis_prefix, '*'])):
             self.redis.delete(k)
             keys_count += 1
-        self.logger.error(f'{keys_count} keys deleted from cache')
+        self.logger.error(f'clear_cache: {keys_count} keys deleted from cache')
 
     def get(self, endpoint: str):
         self.logger.error(f'Endpoint => {endpoint}')
-        cached_data = self.redis.get(''.join([self.redis_prefix, endpoint]))
+        cached_data = self.redis.get(''.join([self._redis_prefix, endpoint]))
 
         if cached_data:
             self.logger.error('Using cached data')
@@ -47,7 +49,7 @@ class CachedClient(BaseClient):
             response = requests.get(url, headers=self.headers)
             data = response.json()
             if response.status_code == 200:
-                self.redis.set(''.join([self.redis_prefix, endpoint]), json.dumps(data), self._redis_TTL)
+                self.redis.set(''.join([self._redis_prefix, endpoint]), json.dumps(data), self._redis_ttl)
             else:
                 self.logger.error(f'Error when getting {url}')
                 self.logger.error(data)
