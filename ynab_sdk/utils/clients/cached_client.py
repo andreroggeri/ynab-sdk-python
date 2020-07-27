@@ -13,7 +13,7 @@ class CachedClient(BaseClient):
     def __init__(self, config: CachedConfig):
         super().__init__(config)
         self.redis = Redis(host=config.redis_host, port=config.redis_port, db=config.redis_db, password=config.redis_pass)
-        self._redis_ttl = 3600
+        self._redis_ttl: Union[int, None] = 3600
         self._redis_prefix: str = 'YNAB_ep_'
 
     @property
@@ -26,7 +26,7 @@ class CachedClient(BaseClient):
             self.logger.error(f'cache_time_to_live: TTL value set to {ttl_value}')
             self._redis_ttl = ttl_value
         else:
-            self.logger.error(f'cache_time_to_live: 0, negative or None TTL value: {ttl_value}, using None')
+            self.logger.error(f'cache_time_to_live: 0, negative or None TTL value: {ttl_value}, set to None')
             self._redis_ttl = None
 
     def clear_cache(self) -> None:
