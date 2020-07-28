@@ -15,7 +15,7 @@ class Account:
     balance: int
     cleared_balance: int
     uncleared_balance: int
-    transfer_payee_id: str
+    transfer_payee_id: Optional[str]
     deleted: bool
 
     @staticmethod
@@ -30,7 +30,7 @@ class Account:
         balance = parsers.from_int(obj.get("balance"))
         cleared_balance = parsers.from_int(obj.get("cleared_balance"))
         uncleared_balance = parsers.from_int(obj.get("uncleared_balance"))
-        transfer_payee_id = parsers.from_str(obj.get("transfer_payee_id"))
+        transfer_payee_id = parsers.from_str(obj.get("transfer_payee_id"), True)
         deleted = parsers.from_bool(obj.get("deleted"))
         return Account(id, name, type, on_budget, closed, note, balance, cleared_balance, uncleared_balance,
                        transfer_payee_id, deleted)
