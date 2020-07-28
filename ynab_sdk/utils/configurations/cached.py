@@ -14,7 +14,7 @@ class CachedConfig(DefaultConfig):
         self._redis_ttl: Optional[int] = 3600
 
     @property
-    def redis_ttl(self) -> Union[int, None]:
+    def redis_ttl(self) -> Optional[int]:
         return self._redis_ttl
 
     @redis_ttl.setter
