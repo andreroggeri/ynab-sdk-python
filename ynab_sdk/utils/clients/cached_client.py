@@ -12,18 +12,18 @@ class CachedClient(BaseClient):
     def __init__(self, config: CachedConfig):
         super().__init__(config)
         self.redis = Redis(host=config.redis_host, port=config.redis_port, db=config.redis_db, password=config.redis_pass)
-        self._redis_prefix: str = 'YNAB_ep_'
+        self._keys_prefix: str = 'YNAB_ep_'
 
     def clear_cache(self) -> None:
         keys_count: int = 0
-        for k in self.redis.scan_iter(''.join([self._redis_prefix, '*'])):
+        for k in self.redis.scan_iter(''.join([self._keys_prefix, '*'])):
             self.redis.delete(k)
             keys_count += 1
         self.logger.info(f'clear_cache: {keys_count} keys deleted from cache')
 
     def get(self, endpoint: str):
         self.logger.error(f'Endpoint => {endpoint}')
-        cached_data = self.redis.get(''.join([self._redis_prefix, endpoint]))
+        cached_data = self.redis.get(''.join([self._keys_prefix, endpoint]))
 
         if cached_data:
             self.logger.error('Using cached data')
@@ -35,7 +35,7 @@ class CachedClient(BaseClient):
             response = requests.get(url, headers=self.headers)
             data = response.json()
             if response.status_code == 200:
-                self.redis.set(''.join([self._redis_prefix, endpoint]), json.dumps(data), self.config.redis_ttl)
+                self.redis.set(''.join([self._keys_prefix, endpoint]), json.dumps(data), self.config.redis_ttl)
             else:
                 self.logger.error(f'Error when getting {url}')
                 self.logger.error(data)
