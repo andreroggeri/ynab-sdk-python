@@ -22,14 +22,14 @@ class CachedClient(DefaultClient):
         self.logger.info(f'clear_cache: {keys_count} keys deleted from cache')
 
     def get(self, endpoint: str):
-        self.logger.error(f'Endpoint => {endpoint}')
+        self.logger.debug(f'Endpoint => {endpoint}')
         cached_data = self.redis.get(''.join([self._keys_prefix, endpoint]))
 
         if cached_data:
-            self.logger.error('Using cached data')
+            self.logger.info('Using cached data')
             data = json.loads(cached_data)
         else:
-            self.logger.error('Cached data not found, searching for new one')
+            self.logger.info('Cached data not found, searching for new one')
             url = self.config.full_url + endpoint
             self.logger.debug(f'Sending get at {url}')
             response = requests.get(url, headers=self.headers)
