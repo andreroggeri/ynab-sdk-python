@@ -3,11 +3,11 @@ import json
 import requests
 from redis import Redis
 
-from ynab_sdk.utils.clients.base_client import BaseClient
+from ynab_sdk.utils.clients.default_client import DefaultClient
 from ynab_sdk.utils.configurations.cached import CachedConfig
 
 
-class CachedClient(BaseClient):
+class CachedClient(DefaultClient):
 
     def __init__(self, config: CachedConfig):
         super().__init__(config)
@@ -41,13 +41,3 @@ class CachedClient(BaseClient):
                 self.logger.error(data)
 
         return data
-
-    def post(self, endpoint: str, payload: dict):
-        url = self.config.full_url + endpoint
-        response = requests.post(url, json=payload, headers=self.headers)
-        return response.json()
-
-    def put(self, endpoint: str, payload: dict):
-        url = self.config.full_url + endpoint
-        response = requests.put(url, json=payload, headers=self.headers)
-        return response.json()
