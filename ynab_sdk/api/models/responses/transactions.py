@@ -11,7 +11,7 @@ class Subtransaction:
     amount: int
     memo: Optional[str]
     payee_id: Optional[str]
-    category_id: str
+    category_id: Optional[str]
     transfer_account_id: Optional[str]
     deleted: bool
 
@@ -23,7 +23,7 @@ class Subtransaction:
         amount = parsers.from_int(obj.get("amount"))
         memo = parsers.from_str(obj.get("memo"), True)
         payee_id = parsers.from_str(obj.get("payee_id"), True)
-        category_id = parsers.from_str(obj.get("category_id"))
+        category_id = parsers.from_str(obj.get("category_id"), True)
         transfer_account_id = parsers.from_str(obj.get("transfer_account_id"), True)
         deleted = parsers.from_bool(obj.get("deleted"))
         return Subtransaction(id, transaction_id, amount, memo, payee_id, category_id, transfer_account_id, deleted)
