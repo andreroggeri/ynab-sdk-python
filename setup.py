@@ -3,7 +3,7 @@ import os
 from setuptools import setup, find_packages
 
 NAME = 'ynab-sdk'
-VERSION = '0.2.2'
+VERSION = '0.2.1'
 REQUIRES = ['requests', 'python-dateutil', 'redis']
 
 
