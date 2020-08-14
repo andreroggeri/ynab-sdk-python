@@ -1,3 +1,4 @@
+black>=19.10b0
 coverage>=4.0.3
 codecov==2.1.8
 kgb==5.0

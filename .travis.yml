@@ -5,6 +5,10 @@ install:
 jobs:
   include:
     - stage: test
+      name: Code format check
+      script:
+        - black --check .
+    - stage: test
       name: Lint
       script:
         - echo linting
