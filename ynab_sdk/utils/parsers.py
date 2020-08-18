@@ -1,5 +1,5 @@
 import datetime
-from typing import Callable, Any, TypeVar, Type, cast, List
+from typing import Any, Callable, List, Type, TypeVar, cast
 
 import dateutil.parser
 

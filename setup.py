@@ -1,10 +1,10 @@
 import os
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
-NAME = 'ynab-sdk'
-VERSION = '0.2.1'
-REQUIRES = ['requests', 'python-dateutil', 'redis']
+NAME = "ynab-sdk"
+VERSION = "0.2.1"
+REQUIRES = ["requests", "python-dateutil", "redis"]
 
 
 def read(fname):
@@ -15,13 +15,13 @@ def read(fname):
 setup(
     name=NAME,
     version=VERSION,
-    description='YNAB API Endpoints',
-    author_email='a.roggeri.c@gmail.com',
-    url='https://github.com/andreroggeri/ynab-sdk-python',
-    keywords=["YNAB", "YNAB API Endpoints", ''],
+    description="YNAB API Endpoints",
+    author_email="a.roggeri.c@gmail.com",
+    url="https://github.com/andreroggeri/ynab-sdk-python",
+    keywords=["YNAB", "YNAB API Endpoints", ""],
     install_requires=REQUIRES,
     packages=find_packages(),
     include_package_data=True,
-    long_description=read('README.md'),
-    long_description_content_type='text/markdown'
+    long_description=read("README.md"),
+    long_description_content_type="text/markdown",
 )

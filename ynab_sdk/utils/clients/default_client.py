@@ -5,13 +5,12 @@ from ynab_sdk.utils.configurations.default import DefaultConfig
 
 
 class DefaultClient(BaseClient):
-
     def __init__(self, config: DefaultConfig):
         super().__init__(config)
 
     def get(self, endpoint: str):
         url = self.config.full_url + endpoint
-        self.logger.debug(f'Sending get at  {url}')
+        self.logger.debug(f"Sending get at  {url}")
         response = requests.get(url, headers=self.headers)
         data = response.json()
 

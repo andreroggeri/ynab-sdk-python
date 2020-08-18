@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, Optional, List
+from typing import Any, List, Optional
 
 from ynab_sdk.utils import parsers
 
@@ -20,21 +20,34 @@ class Account:
     deleted: bool
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Account':
+    def from_dict(obj: Any) -> "Account":
         assert isinstance(obj, dict)
         id = parsers.from_str(obj.get("id"))
         name = parsers.from_str(obj.get("name"))
         type = parsers.from_str(obj.get("type"))
         on_budget = parsers.from_bool(obj.get("on_budget"))
         closed = parsers.from_bool(obj.get("closed"))
-        note = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("note"))
+        note = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("note")
+        )
         balance = parsers.from_int(obj.get("balance"))
         cleared_balance = parsers.from_int(obj.get("cleared_balance"))
         uncleared_balance = parsers.from_int(obj.get("uncleared_balance"))
         transfer_payee_id = parsers.from_str(obj.get("transfer_payee_id"))
         deleted = parsers.from_bool(obj.get("deleted"))
-        return Account(id, name, type, on_budget, closed, note, balance, cleared_balance, uncleared_balance,
-                       transfer_payee_id, deleted)
+        return Account(
+            id,
+            name,
+            type,
+            on_budget,
+            closed,
+            note,
+            balance,
+            cleared_balance,
+            uncleared_balance,
+            transfer_payee_id,
+            deleted,
+        )
 
 
 @dataclass
@@ -56,28 +69,54 @@ class Category:
     deleted: Optional[bool]
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Category':
+    def from_dict(obj: Any) -> "Category":
         assert isinstance(obj, dict)
         id = parsers.from_str(obj.get("id"))
         category_group_id = parsers.from_str(obj.get("category_group_id"))
         name = parsers.from_str(obj.get("name"))
         hidden = parsers.from_bool(obj.get("hidden"))
-        original_category_group_id = parsers.from_union([parsers.from_str, parsers.from_none],
-                                                        obj.get("original_category_group_id"))
-        note = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("note"))
+        original_category_group_id = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("original_category_group_id")
+        )
+        note = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("note")
+        )
         budgeted = parsers.from_int(obj.get("budgeted"))
         activity = parsers.from_int(obj.get("activity"))
         balance = parsers.from_int(obj.get("balance"))
-        goal_type = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("note"))
-        goal_creation_month = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("goal_creation_month"))
-        goal_target = parsers.from_union([parsers.from_int, parsers.from_none], obj.get("goal_target"))
-        goal_target_month = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("goal_target_month"))
-        goal_percentage_complete = parsers.from_union([parsers.from_int, parsers.from_none],
-                                                      obj.get("goal_percentage_complete"))
+        goal_type = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("note")
+        )
+        goal_creation_month = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("goal_creation_month")
+        )
+        goal_target = parsers.from_union(
+            [parsers.from_int, parsers.from_none], obj.get("goal_target")
+        )
+        goal_target_month = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("goal_target_month")
+        )
+        goal_percentage_complete = parsers.from_union(
+            [parsers.from_int, parsers.from_none], obj.get("goal_percentage_complete")
+        )
         deleted = parsers.from_bool(obj.get("deleted"))
-        return Category(id, category_group_id, name, hidden, original_category_group_id, note, budgeted, activity,
-                        balance, goal_type, goal_creation_month, goal_target, goal_target_month,
-                        goal_percentage_complete, deleted)
+        return Category(
+            id,
+            category_group_id,
+            name,
+            hidden,
+            original_category_group_id,
+            note,
+            budgeted,
+            activity,
+            balance,
+            goal_type,
+            goal_creation_month,
+            goal_target,
+            goal_target_month,
+            goal_percentage_complete,
+            deleted,
+        )
 
 
 @dataclass
@@ -89,13 +128,17 @@ class CategoryGroup:
     transfer_account_id: Optional[str]
 
     @staticmethod
-    def from_dict(obj: Any) -> 'CategoryGroup':
+    def from_dict(obj: Any) -> "CategoryGroup":
         assert isinstance(obj, dict)
         id = parsers.from_str(obj.get("id"))
         name = parsers.from_str(obj.get("name"))
-        hidden = parsers.from_union([parsers.from_bool, parsers.from_none], obj.get("hidden"))
+        hidden = parsers.from_union(
+            [parsers.from_bool, parsers.from_none], obj.get("hidden")
+        )
         deleted = parsers.from_bool(obj.get("deleted"))
-        transfer_account_id = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("transfer_account_id"))
+        transfer_account_id = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("transfer_account_id")
+        )
         return CategoryGroup(id, name, hidden, deleted, transfer_account_id)
 
 
@@ -111,7 +154,7 @@ class CurrencyFormat:
     display_symbol: bool
 
     @staticmethod
-    def from_dict(obj: Any) -> 'CurrencyFormat':
+    def from_dict(obj: Any) -> "CurrencyFormat":
         assert isinstance(obj, dict)
         iso_code = parsers.from_str(obj.get("iso_code"))
         example_format = parsers.from_str(obj.get("example_format"))
@@ -121,8 +164,16 @@ class CurrencyFormat:
         group_separator = parsers.from_str(obj.get("group_separator"))
         currency_symbol = parsers.from_str(obj.get("currency_symbol"))
         display_symbol = parsers.from_bool(obj.get("display_symbol"))
-        return CurrencyFormat(iso_code, example_format, decimal_digits, decimal_separator, symbol_first,
-                              group_separator, currency_symbol, display_symbol)
+        return CurrencyFormat(
+            iso_code,
+            example_format,
+            decimal_digits,
+            decimal_separator,
+            symbol_first,
+            group_separator,
+            currency_symbol,
+            display_symbol,
+        )
 
 
 @dataclass
@@ -130,7 +181,7 @@ class DateFormat:
     format: str
 
     @staticmethod
-    def from_dict(obj: Any) -> 'DateFormat':
+    def from_dict(obj: Any) -> "DateFormat":
         assert isinstance(obj, dict)
         format = parsers.from_str(obj.get("format"))
         return DateFormat(format)
@@ -149,18 +200,32 @@ class Month:
     categories: List[Category]
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Month':
+    def from_dict(obj: Any) -> "Month":
         assert isinstance(obj, dict)
         month = parsers.from_str(obj.get("month"))
-        note = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("note"))
+        note = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("note")
+        )
         income = parsers.from_int(obj.get("income"))
         budgeted = parsers.from_int(obj.get("budgeted"))
         activity = parsers.from_int(obj.get("activity"))
         to_be_budgeted = parsers.from_int(obj.get("to_be_budgeted"))
-        age_of_money = parsers.from_union([parsers.from_int, parsers.from_none], obj.get("age_of_money"))
+        age_of_money = parsers.from_union(
+            [parsers.from_int, parsers.from_none], obj.get("age_of_money")
+        )
         deleted = parsers.from_bool(obj.get("deleted"))
         categories = parsers.from_list(Category.from_dict, obj.get("categories"))
-        return Month(month, note, income, budgeted, activity, to_be_budgeted, age_of_money, deleted, categories)
+        return Month(
+            month,
+            note,
+            income,
+            budgeted,
+            activity,
+            to_be_budgeted,
+            age_of_money,
+            deleted,
+            categories,
+        )
 
 
 @dataclass
@@ -172,7 +237,7 @@ class PayeeLocation:
     deleted: bool
 
     @staticmethod
-    def from_dict(obj: Any) -> 'PayeeLocation':
+    def from_dict(obj: Any) -> "PayeeLocation":
         assert isinstance(obj, dict)
         id = parsers.from_str(obj.get("id"))
         payee_id = parsers.from_str(obj.get("payee_id"))
@@ -195,20 +260,36 @@ class Subtransaction:
     transaction_id: Optional[str]
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Subtransaction':
+    def from_dict(obj: Any) -> "Subtransaction":
         assert isinstance(obj, dict)
         id = parsers.from_str(obj.get("id"))
-        scheduled_transaction_id = parsers.from_union([parsers.from_str, parsers.from_none],
-                                                      obj.get("scheduled_transaction_id"))
+        scheduled_transaction_id = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("scheduled_transaction_id")
+        )
         amount = parsers.from_int(obj.get("amount"))
         memo = parsers.from_str(obj.get("memo"), True)
-        payee_id = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("payee_id"))
+        payee_id = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("payee_id")
+        )
         category_id = parsers.from_str(obj.get("category_id"))
-        transfer_account_id = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("transfer_account_id"))
+        transfer_account_id = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("transfer_account_id")
+        )
         deleted = parsers.from_bool(obj.get("deleted"))
-        transaction_id = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("transaction_id"))
-        return Subtransaction(id, scheduled_transaction_id, amount, memo, payee_id, category_id, transfer_account_id,
-                              deleted, transaction_id)
+        transaction_id = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("transaction_id")
+        )
+        return Subtransaction(
+            id,
+            scheduled_transaction_id,
+            amount,
+            memo,
+            payee_id,
+            category_id,
+            transfer_account_id,
+            deleted,
+            transaction_id,
+        )
 
 
 @dataclass
@@ -227,7 +308,7 @@ class ScheduledTransaction:
     deleted: bool
 
     @staticmethod
-    def from_dict(obj: Any) -> 'ScheduledTransaction':
+    def from_dict(obj: Any) -> "ScheduledTransaction":
         assert isinstance(obj, dict)
         id = parsers.from_str(obj.get("id"))
         date_first = parsers.from_str(obj.get("date_first"))
@@ -241,8 +322,20 @@ class ScheduledTransaction:
         category_id = parsers.from_str(obj.get("category_id"), True)
         transfer_account_id = parsers.from_str(obj.get("transfer_account_id"), True)
         deleted = parsers.from_bool(obj.get("deleted"))
-        return ScheduledTransaction(id, date_first, date_next, frequency, amount, memo, flag_color, account_id,
-                                    payee_id, category_id, transfer_account_id, deleted)
+        return ScheduledTransaction(
+            id,
+            date_first,
+            date_next,
+            frequency,
+            amount,
+            memo,
+            flag_color,
+            account_id,
+            payee_id,
+            category_id,
+            transfer_account_id,
+            deleted,
+        )
 
 
 @dataclass
@@ -264,27 +357,56 @@ class Transaction:
     deleted: bool
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Transaction':
+    def from_dict(obj: Any) -> "Transaction":
         assert isinstance(obj, dict)
         id = parsers.from_str(obj.get("id"))
         date = parsers.from_str(obj.get("date"))
         amount = parsers.from_int(obj.get("amount"))
-        memo = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("memo"))
+        memo = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("memo")
+        )
         cleared = parsers.from_str(obj.get("cleared"))
         approved = parsers.from_bool(obj.get("approved"))
-        flag_color = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("flag_color"))
+        flag_color = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("flag_color")
+        )
         account_id = parsers.from_str(obj.get("account_id"))
-        payee_id = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("payee_id"))
-        category_id = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("category_id"))
-        transfer_account_id = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("transfer_account_id"))
-        transfer_transaction_id = parsers.from_union([parsers.from_str, parsers.from_none],
-                                                     obj.get("transfer_transaction_id"))
-        matched_transaction_id = parsers.from_union([parsers.from_str, parsers.from_none],
-                                                    obj.get("matched_transaction_id"))
-        import_id = parsers.from_union([parsers.from_str, parsers.from_none], obj.get("import_id"))
+        payee_id = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("payee_id")
+        )
+        category_id = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("category_id")
+        )
+        transfer_account_id = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("transfer_account_id")
+        )
+        transfer_transaction_id = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("transfer_transaction_id")
+        )
+        matched_transaction_id = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("matched_transaction_id")
+        )
+        import_id = parsers.from_union(
+            [parsers.from_str, parsers.from_none], obj.get("import_id")
+        )
         deleted = parsers.from_bool(obj.get("deleted"))
-        return Transaction(id, date, amount, memo, cleared, approved, flag_color, account_id, payee_id, category_id,
-                           transfer_account_id, transfer_transaction_id, matched_transaction_id, import_id, deleted)
+        return Transaction(
+            id,
+            date,
+            amount,
+            memo,
+            cleared,
+            approved,
+            flag_color,
+            account_id,
+            payee_id,
+            category_id,
+            transfer_account_id,
+            transfer_transaction_id,
+            matched_transaction_id,
+            import_id,
+            deleted,
+        )
 
 
 @dataclass
@@ -308,7 +430,7 @@ class Budget:
     scheduled_subtransactions: List[Subtransaction]
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Budget':
+    def from_dict(obj: Any) -> "Budget":
         assert isinstance(obj, dict)
         id = parsers.from_str(obj.get("id"))
         name = parsers.from_str(obj.get("name"))
@@ -319,17 +441,43 @@ class Budget:
         currency_format = CurrencyFormat.from_dict(obj.get("currency_format"))
         accounts = parsers.from_list(Account.from_dict, obj.get("accounts"))
         payees = parsers.from_list(CategoryGroup.from_dict, obj.get("payees"))
-        payee_locations = parsers.from_list(PayeeLocation.from_dict, obj.get("payee_locations"))
-        category_groups = parsers.from_list(CategoryGroup.from_dict, obj.get("category_groups"))
+        payee_locations = parsers.from_list(
+            PayeeLocation.from_dict, obj.get("payee_locations")
+        )
+        category_groups = parsers.from_list(
+            CategoryGroup.from_dict, obj.get("category_groups")
+        )
         categories = parsers.from_list(Category.from_dict, obj.get("categories"))
         months = parsers.from_list(Month.from_dict, obj.get("months"))
         transactions = parsers.from_list(Transaction.from_dict, obj.get("transactions"))
-        subtransactions = parsers.from_list(Subtransaction.from_dict, obj.get("subtransactions"))
-        scheduled_transactions = parsers.from_list(ScheduledTransaction.from_dict, obj.get("scheduled_transactions"))
-        scheduled_subtransactions = parsers.from_list(Subtransaction.from_dict, obj.get("scheduled_subtransactions"))
-        return Budget(id, name, last_modified_on, first_month, last_month, date_format, currency_format, accounts,
-                      payees, payee_locations, category_groups, categories, months, transactions, subtransactions,
-                      scheduled_transactions, scheduled_subtransactions)
+        subtransactions = parsers.from_list(
+            Subtransaction.from_dict, obj.get("subtransactions")
+        )
+        scheduled_transactions = parsers.from_list(
+            ScheduledTransaction.from_dict, obj.get("scheduled_transactions")
+        )
+        scheduled_subtransactions = parsers.from_list(
+            Subtransaction.from_dict, obj.get("scheduled_subtransactions")
+        )
+        return Budget(
+            id,
+            name,
+            last_modified_on,
+            first_month,
+            last_month,
+            date_format,
+            currency_format,
+            accounts,
+            payees,
+            payee_locations,
+            category_groups,
+            categories,
+            months,
+            transactions,
+            subtransactions,
+            scheduled_transactions,
+            scheduled_subtransactions,
+        )
 
 
 @dataclass
@@ -338,7 +486,7 @@ class Data:
     server_knowledge: int
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Data':
+    def from_dict(obj: Any) -> "Data":
         assert isinstance(obj, dict)
         budget = Budget.from_dict(obj.get("budget"))
         server_knowledge = parsers.from_int(obj.get("server_knowledge"))
@@ -350,7 +498,7 @@ class BudgetDetailResponse:
     data: Data
 
     @staticmethod
-    def from_dict(obj: Any) -> 'BudgetDetailResponse':
+    def from_dict(obj: Any) -> "BudgetDetailResponse":
         assert isinstance(obj, dict)
         data = Data.from_dict(obj.get("data"))
         return BudgetDetailResponse(data)

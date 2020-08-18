@@ -22,12 +22,12 @@ VALID_CATEGORIES = {
                         "goal_target": 0,
                         "goal_target_month": "string",
                         "goal_percentage_complete": 0,
-                        "deleted": True
+                        "deleted": True,
                     }
-                ]
+                ],
             }
         ],
-        "server_knowledge": 0
+        "server_knowledge": 0,
     }
 }
 
@@ -48,7 +48,7 @@ VALID_CATEGORY = {
             "goal_target": 0,
             "goal_target_month": "string",
             "goal_percentage_complete": 0,
-            "deleted": True
+            "deleted": True,
         }
     }
 }

@@ -1,6 +1,6 @@
 import json
 from unittest import TestCase
-from unittest.mock import Mock, MagicMock, PropertyMock
+from unittest.mock import MagicMock, Mock, PropertyMock
 
 import requests
 from kgb import SpyAgency
@@ -45,7 +45,7 @@ class CachedClientTest(SpyAgency, TestCase):
     client: CachedClient
 
     def setUp(self):
-        self.config = CachedConfig('redis', 6379, api_key='some-key')
+        self.config = CachedConfig("redis", 6379, api_key="some-key")
         self.client = CachedClient(self.config)
         self.spy_on(Redis.__init__, call_original=False)
 
@@ -54,19 +54,21 @@ class CachedClientTest(SpyAgency, TestCase):
         self.spy_on(Redis.get, call_fake=fake_redis_get)
         self.spy_on(Redis.set, call_fake=fake_redis_set)
 
-        self.client.get('/some-endpoint')
+        self.client.get("/some-endpoint")
 
-        expected_endpoint = self.config.full_url + '/some-endpoint'
-        self.assertTrue(request_get_spy.called_with(expected_endpoint, headers=self.client.headers))
+        expected_endpoint = self.config.full_url + "/some-endpoint"
+        self.assertTrue(
+            request_get_spy.called_with(expected_endpoint, headers=self.client.headers)
+        )
 
     def test_succesful_cached_get(self):
         def fake_redis_get(self, key):
-            return json.dumps({'some': 'obj'})
+            return json.dumps({"some": "obj"})
 
         request_get_spy = self.spy_on(requests.get, call_fake=fake_get)
         self.spy_on(Redis.get, call_fake=fake_redis_get)
 
-        self.client.get('/some-endpoint')
+        self.client.get("/some-endpoint")
 
         self.assertFalse(request_get_spy.called)
 
@@ -75,13 +77,15 @@ class CachedClientTest(SpyAgency, TestCase):
         redis_set_spy = self.spy_on(Redis.set, call_fake=fake_redis_set)
         self.spy_on(Redis.get, call_fake=fake_redis_get)
 
-        self.client.get('/some-endpoint')
+        self.client.get("/some-endpoint")
 
-        expected_endpoint = self.config.full_url + '/some-endpoint'
-        self.assertTrue(request_get_spy.called_with(expected_endpoint, headers=self.client.headers))
+        expected_endpoint = self.config.full_url + "/some-endpoint"
+        self.assertTrue(
+            request_get_spy.called_with(expected_endpoint, headers=self.client.headers)
+        )
         self.assertFalse(redis_set_spy.called)
 
     def test_succesful_post(self):
         spy = self.spy_on(requests.post, call_fake=fake_post)
-        payload = {'key': 'value'}
-        self.client.post('/some-endpoint', payload)
+        payload = {"key": "value"}
+        self.client.post("/some-endpoint", payload)

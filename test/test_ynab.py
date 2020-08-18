@@ -1,6 +1,6 @@
+from test.support.dummy_client import DummyClient
 from unittest import TestCase
 
-from test.support.dummy_client import DummyClient
 from ynab_sdk import YNAB
 
 

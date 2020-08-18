@@ -29,12 +29,12 @@ VALID_TRANSACTIONS = {
                         "payee_id": "string",
                         "category_id": "string",
                         "transfer_account_id": "string",
-                        "deleted": True
+                        "deleted": True,
                     }
-                ]
+                ],
             }
         ],
-        "server_knowledge": 0
+        "server_knowledge": 0,
     }
 }
 
@@ -68,9 +68,9 @@ VALID_TRANSACTION = {
                     "payee_id": "string",
                     "category_id": "string",
                     "transfer_account_id": "string",
-                    "deleted": True
+                    "deleted": True,
                 }
-            ]
+            ],
         }
     }
 }

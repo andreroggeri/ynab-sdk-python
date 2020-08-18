@@ -7,9 +7,7 @@ VALID_BUDGETS = {
                 "last_modified_on": "2019-05-04T00:21:53.323Z",
                 "first_month": "string",
                 "last_month": "string",
-                "date_format": {
-                    "format": "string"
-                },
+                "date_format": {"format": "string"},
                 "currency_format": {
                     "iso_code": "string",
                     "example_format": "string",
@@ -18,8 +16,8 @@ VALID_BUDGETS = {
                     "symbol_first": True,
                     "group_separator": "string",
                     "currency_symbol": "string",
-                    "display_symbol": True
-                }
+                    "display_symbol": True,
+                },
             }
         ]
     }
@@ -33,9 +31,7 @@ VALID_BUDGET = {
             "last_modified_on": "2019-05-04T00:22:42.764Z",
             "first_month": "string",
             "last_month": "string",
-            "date_format": {
-                "format": "string"
-            },
+            "date_format": {"format": "string"},
             "currency_format": {
                 "iso_code": "string",
                 "example_format": "string",
@@ -44,7 +40,7 @@ VALID_BUDGET = {
                 "symbol_first": True,
                 "group_separator": "string",
                 "currency_symbol": "string",
-                "display_symbol": True
+                "display_symbol": True,
             },
             "accounts": [
                 {
@@ -58,7 +54,7 @@ VALID_BUDGET = {
                     "cleared_balance": 0,
                     "uncleared_balance": 0,
                     "transfer_payee_id": "string",
-                    "deleted": True
+                    "deleted": True,
                 }
             ],
             "payees": [
@@ -66,7 +62,7 @@ VALID_BUDGET = {
                     "id": "string",
                     "name": "string",
                     "transfer_account_id": "string",
-                    "deleted": True
+                    "deleted": True,
                 }
             ],
             "payee_locations": [
@@ -75,16 +71,11 @@ VALID_BUDGET = {
                     "payee_id": "string",
                     "latitude": "string",
                     "longitude": "string",
-                    "deleted": True
+                    "deleted": True,
                 }
             ],
             "category_groups": [
-                {
-                    "id": "string",
-                    "name": "string",
-                    "hidden": True,
-                    "deleted": True
-                }
+                {"id": "string", "name": "string", "hidden": True, "deleted": True}
             ],
             "categories": [
                 {
@@ -102,7 +93,7 @@ VALID_BUDGET = {
                     "goal_target": 0,
                     "goal_target_month": "string",
                     "goal_percentage_complete": 0,
-                    "deleted": True
+                    "deleted": True,
                 }
             ],
             "months": [
@@ -131,9 +122,9 @@ VALID_BUDGET = {
                             "goal_target": 0,
                             "goal_target_month": "string",
                             "goal_percentage_complete": 0,
-                            "deleted": True
+                            "deleted": True,
                         }
-                    ]
+                    ],
                 }
             ],
             "transactions": [
@@ -152,7 +143,7 @@ VALID_BUDGET = {
                     "transfer_transaction_id": "string",
                     "matched_transaction_id": "string",
                     "import_id": "string",
-                    "deleted": True
+                    "deleted": True,
                 }
             ],
             "subtransactions": [
@@ -164,7 +155,7 @@ VALID_BUDGET = {
                     "payee_id": "string",
                     "category_id": "string",
                     "transfer_account_id": "string",
-                    "deleted": True
+                    "deleted": True,
                 }
             ],
             "scheduled_transactions": [
@@ -180,7 +171,7 @@ VALID_BUDGET = {
                     "payee_id": "string",
                     "category_id": "string",
                     "transfer_account_id": "string",
-                    "deleted": True
+                    "deleted": True,
                 }
             ],
             "scheduled_subtransactions": [
@@ -192,20 +183,18 @@ VALID_BUDGET = {
                     "payee_id": "string",
                     "category_id": "string",
                     "transfer_account_id": "string",
-                    "deleted": True
+                    "deleted": True,
                 }
-            ]
+            ],
         },
-        "server_knowledge": 0
+        "server_knowledge": 0,
     }
 }
 
 VALID_SETTINGS = {
     "data": {
         "settings": {
-            "date_format": {
-                "format": "string"
-            },
+            "date_format": {"format": "string"},
             "currency_format": {
                 "iso_code": "string",
                 "example_format": "string",
@@ -214,8 +203,8 @@ VALID_SETTINGS = {
                 "symbol_first": True,
                 "group_separator": "string",
                 "currency_symbol": "string",
-                "display_symbol": True
-            }
+                "display_symbol": True,
+            },
         }
     }
 }

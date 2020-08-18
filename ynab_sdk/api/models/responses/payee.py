@@ -12,7 +12,7 @@ class Payee:
     deleted: bool
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Payee':
+    def from_dict(obj: Any) -> "Payee":
         assert isinstance(obj, dict)
         id = parsers.from_str(obj.get("id"))
         name = parsers.from_str(obj.get("name"))
@@ -26,7 +26,7 @@ class Data:
     payee: Payee
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Data':
+    def from_dict(obj: Any) -> "Data":
         assert isinstance(obj, dict)
         payee = Payee.from_dict(obj.get("payee"))
         return Data(payee)
@@ -37,7 +37,7 @@ class PayeeResponse:
     data: Data
 
     @staticmethod
-    def from_dict(obj: Any) -> 'PayeeResponse':
+    def from_dict(obj: Any) -> "PayeeResponse":
         assert isinstance(obj, dict)
         data = Data.from_dict(obj.get("data"))
         return PayeeResponse(data)
