@@ -12,10 +12,10 @@ VALID_ACCOUNTS = {
                 "cleared_balance": 0,
                 "uncleared_balance": 0,
                 "transfer_payee_id": "06a096c6-e83a-415c-9747-be523de08ff5",
-                "deleted": False
+                "deleted": False,
             }
         ],
-        "server_knowledge": 47
+        "server_knowledge": 47,
     }
 }
 
@@ -32,7 +32,7 @@ VALID_ACCOUNT = {
             "cleared_balance": 0,
             "uncleared_balance": 0,
             "transfer_payee_id": "cda78a53-339f-4535-a39c-039c92f90618",
-            "deleted": False
+            "deleted": False,
         }
     }
 }

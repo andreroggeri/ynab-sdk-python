@@ -3,9 +3,8 @@ from ynab_sdk.utils.configurations.default import DefaultConfig
 
 
 class DummyClient(BaseClient):
-
     def __init__(self):
-        config = DefaultConfig('abc')
+        config = DefaultConfig("abc")
         super().__init__(config)
         self.get_data = None
 

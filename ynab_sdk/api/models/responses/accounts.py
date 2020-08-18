@@ -19,7 +19,7 @@ class Account:
     deleted: bool
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Account':
+    def from_dict(obj: Any) -> "Account":
         assert isinstance(obj, dict)
         id = parsers.from_str(obj.get("id"))
         name = parsers.from_str(obj.get("name"))
@@ -32,8 +32,19 @@ class Account:
         uncleared_balance = parsers.from_int(obj.get("uncleared_balance"))
         transfer_payee_id = parsers.from_str(obj.get("transfer_payee_id"), True)
         deleted = parsers.from_bool(obj.get("deleted"))
-        return Account(id, name, type, on_budget, closed, note, balance, cleared_balance, uncleared_balance,
-                       transfer_payee_id, deleted)
+        return Account(
+            id,
+            name,
+            type,
+            on_budget,
+            closed,
+            note,
+            balance,
+            cleared_balance,
+            uncleared_balance,
+            transfer_payee_id,
+            deleted,
+        )
 
 
 @dataclass
@@ -42,7 +53,7 @@ class Data:
     server_knowledge: int
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Data':
+    def from_dict(obj: Any) -> "Data":
         assert isinstance(obj, dict)
         accounts = parsers.from_list(Account.from_dict, obj.get("accounts"))
         server_knowledge = parsers.from_int(obj.get("server_knowledge"))
@@ -54,7 +65,7 @@ class AccountsResponse:
     data: Data
 
     @staticmethod
-    def from_dict(obj: Any) -> 'AccountsResponse':
+    def from_dict(obj: Any) -> "AccountsResponse":
         assert isinstance(obj, dict)
         data = Data.from_dict(obj.get("data"))
         return AccountsResponse(data)

@@ -5,10 +5,10 @@ VALID_PAYEES = {
                 "id": "string",
                 "name": "string",
                 "transfer_account_id": "string",
-                "deleted": True
+                "deleted": True,
             }
         ],
-        "server_knowledge": 0
+        "server_knowledge": 0,
     }
 }
 
@@ -18,7 +18,7 @@ VALID_PAYEE = {
             "id": "string",
             "name": "string",
             "transfer_account_id": "string",
-            "deleted": True
+            "deleted": True,
         }
     }
 }
