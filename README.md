@@ -22,10 +22,41 @@ pip install ynab-sdk
 
 ## Usage
 
+Example of use with the default client:
+
 ```python
 from ynab_sdk import YNAB
 
 ynab = YNAB('some-key')
+
+print(ynab.budgets.get_budgets())
+```
+
+Example of use with the cached client:
+
+```python
+from ynab_sdk import YNAB
+from ynab_sdk.utils.clients.cached_client import CachedClient
+from ynab_sdk.utils.configurations.cached import CachedConfig
+
+ynab_config = CachedConfig(
+    redis_host='redis-host',
+    redis_port='redis-port',
+    redis_db='redis-db',
+    redis_pass='redis-password',
+    api_key='some-key',
+)
+ynab_client = CachedClient(ynab_config)
+ynab = YNAB(client=ynab_client)
+
+# clear the cache
+ynab_client.clear_cache()
+
+# set the cached data expiration time in seconds
+# if set to 0, negative or None, the cached data never expires
+# default value is 3600 seconds (1 hour)
+ynab_config.redis_ttl = 120
+
 print(ynab.budgets.get_budgets())
 ```
 
