@@ -1,5 +1,5 @@
 black>=19.10b0
 coverage>=4.0.3
-codecov==2.1.8
+codecov==2.1.9
 kgb==5.0
 nose2[coverage_plugin]==0.9.2
