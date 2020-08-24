@@ -46,13 +46,13 @@ class DateFormat:
     @staticmethod
     def from_dict(obj: Any) -> "DateFormat":
         assert isinstance(obj, dict)
-        format = parsers.from_str(obj.get("format"))
-        return DateFormat(format)
+        date_format = parsers.from_str(obj.get("format"))
+        return DateFormat(date_format)
 
 
 @dataclass
 class Budget:
-    id: str
+    budget_id: str
     name: str
     last_modified_on: datetime
     first_month: str
@@ -63,7 +63,7 @@ class Budget:
     @staticmethod
     def from_dict(obj: Any) -> "Budget":
         assert isinstance(obj, dict)
-        id = parsers.from_str(obj.get("id"))
+        budget_id = parsers.from_str(obj.get("id"))
         name = parsers.from_str(obj.get("name"))
         last_modified_on = parsers.from_datetime(obj.get("last_modified_on"))
         first_month = parsers.from_str(obj.get("first_month"))
@@ -71,7 +71,7 @@ class Budget:
         date_format = DateFormat.from_dict(obj.get("date_format"))
         currency_format = CurrencyFormat.from_dict(obj.get("currency_format"))
         return Budget(
-            id,
+            budget_id,
             name,
             last_modified_on,
             first_month,

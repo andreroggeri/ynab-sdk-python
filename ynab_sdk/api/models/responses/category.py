@@ -6,7 +6,7 @@ from ynab_sdk.utils import parsers
 
 @dataclass
 class Category:
-    id: str
+    category_id: str
     category_group_id: str
     name: str
     hidden: bool
@@ -25,7 +25,7 @@ class Category:
     @staticmethod
     def from_dict(obj: Any) -> "Category":
         assert isinstance(obj, dict)
-        id = parsers.from_str(obj.get("id"))
+        category_id = parsers.from_str(obj.get("id"))
         category_group_id = parsers.from_str(obj.get("category_group_id"))
         name = parsers.from_str(obj.get("name"))
         hidden = parsers.from_bool(obj.get("hidden"))
@@ -45,7 +45,7 @@ class Category:
         )
         deleted = parsers.from_bool(obj.get("deleted"))
         return Category(
-            id,
+            category_id,
             category_group_id,
             name,
             hidden,

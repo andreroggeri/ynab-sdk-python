@@ -6,7 +6,7 @@ from ynab_sdk.utils import parsers
 
 @dataclass
 class Payee:
-    id: str
+    payee_id: str
     name: str
     transfer_account_id: Optional[str]
     deleted: bool
@@ -14,11 +14,11 @@ class Payee:
     @staticmethod
     def from_dict(obj: Any) -> "Payee":
         assert isinstance(obj, dict)
-        id = parsers.from_str(obj.get("id"))
+        payee_id = parsers.from_str(obj.get("id"))
         name = parsers.from_str(obj.get("name"))
         transfer_account_id = parsers.from_str(obj.get("transfer_account_id"), True)
         deleted = parsers.from_bool(obj.get("deleted"))
-        return Payee(id, name, transfer_account_id, deleted)
+        return Payee(payee_id, name, transfer_account_id, deleted)
 
 
 @dataclass

@@ -7,9 +7,9 @@ from ynab_sdk.utils import parsers
 
 @dataclass
 class Account:
-    id: str
+    account_id: str
     name: str
-    type: str
+    account_type: str
     on_budget: bool
     closed: bool
     note: str
@@ -22,9 +22,9 @@ class Account:
     @staticmethod
     def from_dict(obj: Any) -> "Account":
         assert isinstance(obj, dict)
-        id = parsers.from_str(obj.get("id"))
+        account_id = parsers.from_str(obj.get("id"))
         name = parsers.from_str(obj.get("name"))
-        type = parsers.from_str(obj.get("type"))
+        account_type = parsers.from_str(obj.get("type"))
         on_budget = parsers.from_bool(obj.get("on_budget"))
         closed = parsers.from_bool(obj.get("closed"))
         note = parsers.from_union(
@@ -36,9 +36,9 @@ class Account:
         transfer_payee_id = parsers.from_str(obj.get("transfer_payee_id"))
         deleted = parsers.from_bool(obj.get("deleted"))
         return Account(
-            id,
+            account_id,
             name,
-            type,
+            account_type,
             on_budget,
             closed,
             note,
@@ -52,7 +52,7 @@ class Account:
 
 @dataclass
 class Category:
-    id: str
+    category_id: str
     category_group_id: str
     name: str
     hidden: bool
@@ -71,7 +71,7 @@ class Category:
     @staticmethod
     def from_dict(obj: Any) -> "Category":
         assert isinstance(obj, dict)
-        id = parsers.from_str(obj.get("id"))
+        category_id = parsers.from_str(obj.get("id"))
         category_group_id = parsers.from_str(obj.get("category_group_id"))
         name = parsers.from_str(obj.get("name"))
         hidden = parsers.from_bool(obj.get("hidden"))
@@ -101,7 +101,7 @@ class Category:
         )
         deleted = parsers.from_bool(obj.get("deleted"))
         return Category(
-            id,
+            category_id,
             category_group_id,
             name,
             hidden,
@@ -121,7 +121,7 @@ class Category:
 
 @dataclass
 class CategoryGroup:
-    id: str
+    category_group_id: str
     name: str
     hidden: Optional[bool]
     deleted: bool
@@ -130,7 +130,7 @@ class CategoryGroup:
     @staticmethod
     def from_dict(obj: Any) -> "CategoryGroup":
         assert isinstance(obj, dict)
-        id = parsers.from_str(obj.get("id"))
+        category_group_id = parsers.from_str(obj.get("id"))
         name = parsers.from_str(obj.get("name"))
         hidden = parsers.from_union(
             [parsers.from_bool, parsers.from_none], obj.get("hidden")
@@ -139,7 +139,9 @@ class CategoryGroup:
         transfer_account_id = parsers.from_union(
             [parsers.from_str, parsers.from_none], obj.get("transfer_account_id")
         )
-        return CategoryGroup(id, name, hidden, deleted, transfer_account_id)
+        return CategoryGroup(
+            category_group_id, name, hidden, deleted, transfer_account_id
+        )
 
 
 @dataclass
@@ -178,18 +180,18 @@ class CurrencyFormat:
 
 @dataclass
 class DateFormat:
-    format: str
+    date_format: str
 
     @staticmethod
     def from_dict(obj: Any) -> "DateFormat":
         assert isinstance(obj, dict)
-        format = parsers.from_str(obj.get("format"))
-        return DateFormat(format)
+        date_format = parsers.from_str(obj.get("format"))
+        return DateFormat(date_format)
 
 
 @dataclass
 class Month:
-    month: str
+    month_name: str
     note: str
     income: int
     budgeted: int
@@ -202,7 +204,7 @@ class Month:
     @staticmethod
     def from_dict(obj: Any) -> "Month":
         assert isinstance(obj, dict)
-        month = parsers.from_str(obj.get("month"))
+        month_name = parsers.from_str(obj.get("month"))
         note = parsers.from_union(
             [parsers.from_str, parsers.from_none], obj.get("note")
         )
@@ -216,7 +218,7 @@ class Month:
         deleted = parsers.from_bool(obj.get("deleted"))
         categories = parsers.from_list(Category.from_dict, obj.get("categories"))
         return Month(
-            month,
+            month_name,
             note,
             income,
             budgeted,
@@ -230,7 +232,7 @@ class Month:
 
 @dataclass
 class PayeeLocation:
-    id: str
+    payee_location_id: str
     payee_id: str
     latitude: str
     longitude: str
@@ -239,17 +241,17 @@ class PayeeLocation:
     @staticmethod
     def from_dict(obj: Any) -> "PayeeLocation":
         assert isinstance(obj, dict)
-        id = parsers.from_str(obj.get("id"))
+        payee_location_id = parsers.from_str(obj.get("id"))
         payee_id = parsers.from_str(obj.get("payee_id"))
         latitude = parsers.from_str(obj.get("latitude"))
         longitude = parsers.from_str(obj.get("longitude"))
         deleted = parsers.from_bool(obj.get("deleted"))
-        return PayeeLocation(id, payee_id, latitude, longitude, deleted)
+        return PayeeLocation(payee_location_id, payee_id, latitude, longitude, deleted)
 
 
 @dataclass
 class Subtransaction:
-    id: str
+    sub_transaction_id: str
     scheduled_transaction_id: Optional[str]
     amount: int
     memo: str
@@ -262,7 +264,7 @@ class Subtransaction:
     @staticmethod
     def from_dict(obj: Any) -> "Subtransaction":
         assert isinstance(obj, dict)
-        id = parsers.from_str(obj.get("id"))
+        sub_transaction_id = parsers.from_str(obj.get("id"))
         scheduled_transaction_id = parsers.from_union(
             [parsers.from_str, parsers.from_none], obj.get("scheduled_transaction_id")
         )
@@ -280,7 +282,7 @@ class Subtransaction:
             [parsers.from_str, parsers.from_none], obj.get("transaction_id")
         )
         return Subtransaction(
-            id,
+            sub_transaction_id,
             scheduled_transaction_id,
             amount,
             memo,
@@ -294,7 +296,7 @@ class Subtransaction:
 
 @dataclass
 class ScheduledTransaction:
-    id: str
+    scheduled_transaction_id: str
     date_first: str
     date_next: str
     frequency: str
@@ -310,7 +312,7 @@ class ScheduledTransaction:
     @staticmethod
     def from_dict(obj: Any) -> "ScheduledTransaction":
         assert isinstance(obj, dict)
-        id = parsers.from_str(obj.get("id"))
+        scheduled_transaction_id = parsers.from_str(obj.get("id"))
         date_first = parsers.from_str(obj.get("date_first"))
         date_next = parsers.from_str(obj.get("date_next"))
         frequency = parsers.from_str(obj.get("frequency"))
@@ -323,7 +325,7 @@ class ScheduledTransaction:
         transfer_account_id = parsers.from_str(obj.get("transfer_account_id"), True)
         deleted = parsers.from_bool(obj.get("deleted"))
         return ScheduledTransaction(
-            id,
+            scheduled_transaction_id,
             date_first,
             date_next,
             frequency,
@@ -340,7 +342,7 @@ class ScheduledTransaction:
 
 @dataclass
 class Transaction:
-    id: str
+    transaction_id: str
     date: str
     amount: int
     memo: Optional[str]
@@ -359,7 +361,7 @@ class Transaction:
     @staticmethod
     def from_dict(obj: Any) -> "Transaction":
         assert isinstance(obj, dict)
-        id = parsers.from_str(obj.get("id"))
+        transaction_id = parsers.from_str(obj.get("id"))
         date = parsers.from_str(obj.get("date"))
         amount = parsers.from_int(obj.get("amount"))
         memo = parsers.from_union(
@@ -391,7 +393,7 @@ class Transaction:
         )
         deleted = parsers.from_bool(obj.get("deleted"))
         return Transaction(
-            id,
+            transaction_id,
             date,
             amount,
             memo,
@@ -411,7 +413,7 @@ class Transaction:
 
 @dataclass
 class Budget:
-    id: str
+    budget_id: str
     name: str
     last_modified_on: datetime
     first_month: str
@@ -432,7 +434,7 @@ class Budget:
     @staticmethod
     def from_dict(obj: Any) -> "Budget":
         assert isinstance(obj, dict)
-        id = parsers.from_str(obj.get("id"))
+        budget_id = parsers.from_str(obj.get("id"))
         name = parsers.from_str(obj.get("name"))
         last_modified_on = parsers.from_datetime(obj.get("last_modified_on"))
         first_month = parsers.from_str(obj.get("first_month"))
@@ -460,7 +462,7 @@ class Budget:
             Subtransaction.from_dict, obj.get("scheduled_subtransactions")
         )
         return Budget(
-            id,
+            budget_id,
             name,
             last_modified_on,
             first_month,

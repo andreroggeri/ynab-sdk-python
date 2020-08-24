@@ -6,7 +6,7 @@ from ynab_sdk.utils import parsers
 
 @dataclass
 class Subtransaction:
-    id: str
+    sub_transaction_id: str
     transaction_id: str
     amount: int
     memo: Optional[str]
@@ -18,7 +18,7 @@ class Subtransaction:
     @staticmethod
     def from_dict(obj: Any) -> "Subtransaction":
         assert isinstance(obj, dict)
-        id = parsers.from_str(obj.get("id"))
+        sub_transaction_id = parsers.from_str(obj.get("id"))
         transaction_id = parsers.from_str(obj.get("transaction_id"))
         amount = parsers.from_int(obj.get("amount"))
         memo = parsers.from_str(obj.get("memo"), True)
@@ -27,7 +27,7 @@ class Subtransaction:
         transfer_account_id = parsers.from_str(obj.get("transfer_account_id"), True)
         deleted = parsers.from_bool(obj.get("deleted"))
         return Subtransaction(
-            id,
+            sub_transaction_id,
             transaction_id,
             amount,
             memo,
@@ -40,7 +40,7 @@ class Subtransaction:
 
 @dataclass
 class Transaction:
-    id: str
+    transaction_id: str
     date: str
     amount: int
     memo: Optional[str]
@@ -63,7 +63,7 @@ class Transaction:
     @staticmethod
     def from_dict(obj: Any) -> "Transaction":
         assert isinstance(obj, dict)
-        id = parsers.from_str(obj.get("id"))
+        transaction_id = parsers.from_str(obj.get("id"))
         date = parsers.from_str(obj.get("date"))
         amount = parsers.from_int(obj.get("amount"))
         memo = parsers.from_str(obj.get("memo"), True)
@@ -89,7 +89,7 @@ class Transaction:
             Subtransaction.from_dict, obj.get("subtransactions")
         )
         return Transaction(
-            id,
+            transaction_id,
             date,
             amount,
             memo,

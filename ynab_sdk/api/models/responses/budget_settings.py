@@ -40,13 +40,13 @@ class CurrencyFormat:
 
 @dataclass
 class DateFormat:
-    format: str
+    date_format: str
 
     @staticmethod
     def from_dict(obj: Any) -> "DateFormat":
         assert isinstance(obj, dict)
-        format = parsers.from_str(obj.get("format"))
-        return DateFormat(format)
+        date_format = parsers.from_str(obj.get("format"))
+        return DateFormat(date_format)
 
 
 @dataclass

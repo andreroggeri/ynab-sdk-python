@@ -6,9 +6,9 @@ from ynab_sdk.utils import parsers
 
 @dataclass
 class Account:
-    id: str
+    account_id: str
     name: str
-    type: str
+    account_type: str
     on_budget: bool
     closed: bool
     note: Optional[str]
@@ -21,9 +21,9 @@ class Account:
     @staticmethod
     def from_dict(obj: Any) -> "Account":
         assert isinstance(obj, dict)
-        id = parsers.from_str(obj.get("id"))
+        account_id = parsers.from_str(obj.get("id"))
         name = parsers.from_str(obj.get("name"))
-        type = parsers.from_str(obj.get("type"))
+        account_type = parsers.from_str(obj.get("type"))
         on_budget = parsers.from_bool(obj.get("on_budget"))
         closed = parsers.from_bool(obj.get("closed"))
         note = parsers.from_str(obj.get("note"), True)
@@ -33,9 +33,9 @@ class Account:
         transfer_payee_id = parsers.from_str(obj.get("transfer_payee_id"))
         deleted = parsers.from_bool(obj.get("deleted"))
         return Account(
-            id,
+            account_id,
             name,
-            type,
+            account_type,
             on_budget,
             closed,
             note,
