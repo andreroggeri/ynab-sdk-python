@@ -6,7 +6,7 @@ from ynab_sdk.utils import parsers
 
 @dataclass
 class Payee:
-    payee_id: str
+    id: str
     name: str
     transfer_account_id: Optional[str]
     deleted: bool

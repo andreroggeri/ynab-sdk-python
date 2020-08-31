@@ -6,7 +6,7 @@ from ynab_sdk.utils import parsers
 
 @dataclass
 class Category:
-    category_id: str
+    id: str
     category_group_id: str
     name: str
     hidden: bool

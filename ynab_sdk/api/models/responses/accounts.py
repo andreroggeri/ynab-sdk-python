@@ -6,9 +6,9 @@ from ynab_sdk.utils import parsers
 
 @dataclass
 class Account:
-    account_id: str
+    id: str
     name: str
-    account_type: str
+    type: str
     on_budget: bool
     closed: bool
     note: Optional[str]

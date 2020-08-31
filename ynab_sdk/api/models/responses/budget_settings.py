@@ -40,7 +40,7 @@ class CurrencyFormat:
 
 @dataclass
 class DateFormat:
-    date_format: str
+    format: str
 
     @staticmethod
     def from_dict(obj: Any) -> "DateFormat":

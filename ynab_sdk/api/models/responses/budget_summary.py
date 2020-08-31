@@ -52,7 +52,7 @@ class DateFormat:
 
 @dataclass
 class Budget:
-    budget_id: str
+    id: str
     name: str
     last_modified_on: datetime
     first_month: str
