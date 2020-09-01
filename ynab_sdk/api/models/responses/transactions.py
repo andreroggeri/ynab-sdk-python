@@ -6,7 +6,7 @@ from ynab_sdk.utils import parsers
 
 @dataclass
 class Subtransaction:
-    sub_transaction_id: str
+    id: str
     transaction_id: str
     amount: int
     memo: Optional[str]
@@ -40,7 +40,7 @@ class Subtransaction:
 
 @dataclass
 class Transaction:
-    transaction_id: str
+    id: str
     date: str
     amount: int
     memo: Optional[str]

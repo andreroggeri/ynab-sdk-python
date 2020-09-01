@@ -7,9 +7,9 @@ from ynab_sdk.utils import parsers
 
 @dataclass
 class Account:
-    account_id: str
+    id: str
     name: str
-    account_type: str
+    type: str
     on_budget: bool
     closed: bool
     note: str
@@ -52,7 +52,7 @@ class Account:
 
 @dataclass
 class Category:
-    category_id: str
+    id: str
     category_group_id: str
     name: str
     hidden: bool
@@ -121,7 +121,7 @@ class Category:
 
 @dataclass
 class CategoryGroup:
-    category_group_id: str
+    id: str
     name: str
     hidden: Optional[bool]
     deleted: bool
@@ -180,7 +180,7 @@ class CurrencyFormat:
 
 @dataclass
 class DateFormat:
-    date_format: str
+    format: str
 
     @staticmethod
     def from_dict(obj: Any) -> "DateFormat":
@@ -191,7 +191,7 @@ class DateFormat:
 
 @dataclass
 class Month:
-    month_name: str
+    month: str
     note: str
     income: int
     budgeted: int
@@ -232,7 +232,7 @@ class Month:
 
 @dataclass
 class PayeeLocation:
-    payee_location_id: str
+    id: str
     payee_id: str
     latitude: str
     longitude: str
@@ -251,7 +251,7 @@ class PayeeLocation:
 
 @dataclass
 class Subtransaction:
-    sub_transaction_id: str
+    id: str
     scheduled_transaction_id: Optional[str]
     amount: int
     memo: str
@@ -296,7 +296,7 @@ class Subtransaction:
 
 @dataclass
 class ScheduledTransaction:
-    scheduled_transaction_id: str
+    id: str
     date_first: str
     date_next: str
     frequency: str
@@ -342,7 +342,7 @@ class ScheduledTransaction:
 
 @dataclass
 class Transaction:
-    transaction_id: str
+    id: str
     date: str
     amount: int
     memo: Optional[str]
@@ -413,7 +413,7 @@ class Transaction:
 
 @dataclass
 class Budget:
-    budget_id: str
+    id: str
     name: str
     last_modified_on: datetime
     first_month: str
