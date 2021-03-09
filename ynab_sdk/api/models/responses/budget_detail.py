@@ -256,8 +256,8 @@ class Subtransaction:
     amount: int
     memo: str
     payee_id: str
-    category_id: str
-    transfer_account_id: str
+    category_id: Optional[str]
+    transfer_account_id: Optional[str]
     deleted: bool
     transaction_id: Optional[str]
 
@@ -273,7 +273,7 @@ class Subtransaction:
         payee_id = parsers.from_union(
             [parsers.from_str, parsers.from_none], obj.get("payee_id")
         )
-        category_id = parsers.from_str(obj.get("category_id"))
+        category_id = parsers.from_str(obj.get("category_id"), True)
         transfer_account_id = parsers.from_union(
             [parsers.from_str, parsers.from_none], obj.get("transfer_account_id")
         )
