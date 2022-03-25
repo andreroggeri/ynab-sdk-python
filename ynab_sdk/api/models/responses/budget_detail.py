@@ -85,7 +85,7 @@ class Category:
         activity = parsers.from_int(obj.get("activity"))
         balance = parsers.from_int(obj.get("balance"))
         goal_type = parsers.from_union(
-            [parsers.from_str, parsers.from_none], obj.get("note")
+            [parsers.from_str, parsers.from_none], obj.get("goal_type")
         )
         goal_creation_month = parsers.from_union(
             [parsers.from_str, parsers.from_none], obj.get("goal_creation_month")
