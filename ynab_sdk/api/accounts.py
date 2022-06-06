@@ -1,5 +1,7 @@
+import dataclasses
 from ynab_sdk.api.models.responses.account import AccountResponse
 from ynab_sdk.api.models.responses.accounts import AccountsResponse
+from ynab_sdk.api.models.requests.accounts import AccountRequest
 from ynab_sdk.utils.clients.base_client import BaseClient
 
 
@@ -14,3 +16,7 @@ class AccountsApi:
     def get_account(self, budget_id: str, account_id: str) -> AccountResponse:
         response = self.client.get(f"/budgets/{budget_id}/accounts/{account_id}")
         return AccountResponse.from_dict(response)
+
+    def create_account(self, budget_id: str, account: AccountRequest):
+        payload = {"account": dataclasses.asdict(account)}
+        return self.client.post(f"/budgets/{budget_id}/accounts", payload)
