@@ -1,5 +1,7 @@
+import dataclasses
 import test.support.fixtures.accounts as account_fixtures
 from test.support.dummy_client import DummyClient
+from test.support.mock import build_post_mock
 from unittest import TestCase
 
 from kgb import SpyAgency
@@ -7,6 +9,7 @@ from kgb import SpyAgency
 from ynab_sdk import YNAB
 from ynab_sdk.api.models.responses.account import AccountResponse
 from ynab_sdk.api.models.responses.accounts import AccountsResponse
+from ynab_sdk.api.models.requests.accounts import AccountRequest
 
 
 def mock_valid_accounts(self, endpoint):
@@ -40,3 +43,14 @@ class AccountsTest(SpyAgency, TestCase):
         self.assertTrue(spy.called_with("/budgets/some-budget/accounts/some-account"))
         self.assertIsNotNone(account)
         self.assertIsInstance(account, AccountResponse)
+
+    def test_create_accounts_with_success(self):
+        spy = self.spy_on(self.client.post, call_fake=build_post_mock())
+
+        account = AccountRequest("some-account", "savings", 123123)
+        response = self.ynab.accounts.create_account("some-budget", account)
+
+        payload = {"account": dataclasses.asdict(account)}
+
+        self.assertTrue(spy.called_with("/budgets/some-budget/accounts", payload))
+        self.assertIsNotNone(response)
