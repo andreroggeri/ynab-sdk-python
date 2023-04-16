@@ -46,7 +46,10 @@ class TransactionsTest(SpyAgency, TestCase):
         self.assertIsInstance(transactions, TransactionsResponse)
 
     def test_create_transactions_with_success(self):
-        spy = self.spy_on(self.client.post, call_fake=build_post_mock())
+        spy = self.spy_on(
+            self.client.post,
+            call_fake=build_post_mock(transaction_fixtures.CREATED_TRANSACTIONS),
+        )
         transactions = [TransactionRequest("some-account", "some-date", 123123)]
         response = self.ynab.transactions.create_transactions(
             "some-budget", transactions

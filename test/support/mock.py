@@ -5,9 +5,9 @@ def build_get_mock(return_value):
     return mock_get
 
 
-def build_post_mock():
+def build_post_mock(return_value=None):
     def mock_post(_self, _endpoint, _payload):
-        return {}
+        return return_value or {}
 
     return mock_post
 

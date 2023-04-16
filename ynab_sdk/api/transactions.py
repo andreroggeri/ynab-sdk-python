@@ -2,7 +2,10 @@ import dataclasses
 from typing import List
 
 from ynab_sdk.api.models.requests.transaction import TransactionRequest
-from ynab_sdk.api.models.responses.transactions import TransactionsResponse
+from ynab_sdk.api.models.responses.transactions import (
+    TransactionsResponse,
+    CreateTransactionResponse,
+)
 from ynab_sdk.utils.clients.base_client import BaseClient
 
 
@@ -26,7 +29,9 @@ class TransactionsApi:
         self, budget_id: str, transactions: List[TransactionRequest]
     ):
         payload = {"transactions": [dataclasses.asdict(t) for t in transactions]}
-        return self.client.post(f"/budgets/{budget_id}/transactions", payload)
+        response = self.client.post(f"/budgets/{budget_id}/transactions", payload)
+
+        return CreateTransactionResponse.from_dict(response)
 
     def update_transaction(
         self, budget_id: str, transaction_id: str, transaction: TransactionRequest
