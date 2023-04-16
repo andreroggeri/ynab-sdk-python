@@ -74,3 +74,11 @@ VALID_TRANSACTION = {
         }
     }
 }
+
+CREATED_TRANSACTIONS = {
+    "data": {
+        "transaction_ids": [VALID_TRANSACTION["data"]["transaction"]["id"]],
+        "duplicate_import_ids": [],
+        "transactions": [VALID_TRANSACTION["data"]["transaction"]],
+    }
+}

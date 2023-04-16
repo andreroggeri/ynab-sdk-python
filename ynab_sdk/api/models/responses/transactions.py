@@ -133,3 +133,28 @@ class TransactionsResponse:
         assert isinstance(obj, dict)
         data = Data.from_dict(obj.get("data"))
         return TransactionsResponse(data)
+
+
+@dataclass
+class CreateTransactionResponse:
+    transaction_ids: List[str]
+    transactions: List[Transaction]
+    duplicate_import_ids: List[str]
+
+    @staticmethod
+    def from_dict(obj: Any) -> "CreateTransactionResponse":
+        assert isinstance(obj, dict)
+        data = obj.get("data")
+        transaction_ids = parsers.from_list(
+            parsers.from_str, data.get("transaction_ids")
+        )
+        transactions = parsers.from_list(
+            Transaction.from_dict, data.get("transactions")
+        )
+        duplicate_import_ids = parsers.from_list(
+            parsers.from_str, data.get("duplicate_import_ids")
+        )
+
+        return CreateTransactionResponse(
+            transaction_ids, transactions, duplicate_import_ids
+        )
