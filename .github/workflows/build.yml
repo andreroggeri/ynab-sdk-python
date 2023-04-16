@@ -37,8 +37,6 @@ jobs:
       - name: Run tests
         run: |
           nose2 -v
-      - name: Coverage
-        run: |
-          codecov
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: true
